@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout-padrao-adm}">
+<head>
+</head>
+<body>
+<section layout:fragment="conteudo">
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-8">
+                    <h2>Lista de Fornecedores</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <a class="btn btn-primary" data-toggle="modal"
+                       data-target="#modal-form">
+                        <i class="fa fa-plus-square"></i> Novo Registro
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="alert  alert-success"
+             th:if="${!#strings.isEmpty(mensagem)}">
+            <i class="fa fa-check-circle"></i> <span th:text="${mensagem}">Mensagem de sucesso!</span>
+        </div>
+
+        <div class="table-responsive">
+            <table id="tabela-produtos"
+                   class="table  table-striped  table-bordered  table-hover  table-condensed">
+                <thead class="ut-table-header-solid">
+                <tr>
+                    <th>Código</th>
+                    <th>Nome</th>
+                    <th>Endereço</th>
+                    <th>CNPJ</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:id="'row_' + ${fornecedor.id}" th:each="fornecedor: ${list.content}">
+                    <td style="width:150px" class="text-center" th:text="${fornecedor.id}">0</td>
+                    <td><a th:href="'javascript:editFornecedor(\'/fornecedor/ajax/' + ${fornecedor.id} + '\');'"
+                           th:text="${fornecedor.nome}">...</a></td>
+                    <td><a th:text="${fornecedor.endereco}">...</a  ></td>
+                    <td><a th:text="${fornecedor.cnpj}">...</a></td>
+
+                    <td style="width:200px" class="text-center">
+                        <a
+                                th:href="'javascript:editFornecedor(\'/fornecedor/ajax/' + ${fornecedor.id} + '\');'"
+                                class="btn btn-primary btn-xs"> <i class="fa fa-edit"></i>
+                        </a> &nbsp;
+                        <a th:href="'javascript:remove('+ ${fornecedor.id} +',\'/fornecedor\');'"
+                           class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+                <tr th:if="${list.empty}">
+                    <td colspan="4">Nenhum registro encontrado.</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination" th:if="${list.totalPages > 0}">
+                    <li class="page-item"
+                        th:classappend="${pageNumber==list.number + 1} ? active"
+                        th:each="pageNumber : ${pageNumbers}">
+                        <a class="page-link"
+                           th:href="@{/fornecedor/page(size=${list.size}, page=${pageNumber})}"
+                           th:text="${pageNumber}"></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!--pagina de cadastro modal-->
+    <div class="modal modal-form" th:id="modal-form">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Cadastro de Fornecedor</h3>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">x
+                    </button>
+                </div> <!-- modal-header -->
+                <div class="modal-body">
+                    <form id="frm" name="frm"
+                          method="POST" class="form-vertical"
+                          th:action="@{/fornecedor/ajax}">
+
+                        <input type="hidden" id="id" name="id"/>
+
+                        <div class="form-group">
+                            <label for="nome">Nome</label>
+                            <input type="text" class="form-control" id="nome" name="nome"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="endereco">Endereço</label>
+                            <input type="text" class="form-control" id="endereco" name="endereco"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cnpj">CNPJ</label>
+                            <input type="text" class="form-control" id="cnpj" name="cnpj"/>
+                        </div>
+
+                    </form>
+                </div> <!-- modal-body -->
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal"
+                            aria-hidden="true">Cancelar
+                    </button>
+                    <button type="button" class="btn btn-success"
+                            onclick="save('/fornecedor/page')">Salvar
+                    </button>
+                </div> <!-- modal-footer -->
+            </div> <!-- modal-content -->
+        </div> <!-- modal-dialog -->
+        <script type="text/javascript" th:src="@{/js/crud-fornecedor.js}"></script>
+    </div>
+</section>
+</body>
+</html>
