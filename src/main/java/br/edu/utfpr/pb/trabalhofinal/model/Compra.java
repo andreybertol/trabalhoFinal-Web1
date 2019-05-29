@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -29,7 +30,7 @@ public class Compra implements Serializable{
 	@NotNull(message = "Preencha o campo data da compra!")
 	@Column(name = "data_compra", nullable = false)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private LocalDate data_compra;
+	private Date data_compra;
 
 	@OneToMany(mappedBy = "compra",
 			cascade = {CascadeType.PERSIST,CascadeType.REMOVE},
@@ -43,7 +44,7 @@ public class Compra implements Serializable{
 	@NotNull(message = "Preencha o campo fornecedor!")
 	@ManyToOne
 	@JoinColumn(name = "fornecedor_id", referencedColumnName = "id")
-	private Marca fornecedor;
+	private Fornecedor fornecedor;
 
 }
 

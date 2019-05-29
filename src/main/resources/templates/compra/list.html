@@ -16,8 +16,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-4">
-                    <a class="btn btn-primary" data-toggle="modal"
-                       data-target="#modal-form">
+                    <a class="btn btn-primary" th:href="@{/compra/new}">
                         <i class="fa fa-plus-square"></i> Novo Registro
                     </a>
                 </div>
@@ -50,8 +49,8 @@
                     <td><a th:href="'javascript:edit(\'/compra/ajax/' + ${compra.id} + '\');'"
                            th:text="${compra.descricao}">...</a></td>
                     <td><a th:text="${compra.data_compra}">...</a></td>
-                    <td><a th:text="${compra.usuario}">...</a></td>
-                    <td><a th:text="${compra.fornecedor}">...</a></td>
+                    <td><a th:text="${compra.usuario.nome}">...</a></td>
+                    <td><a th:text="${compra.fornecedor.nome}">...</a></td>
                     <button type="button">Produto(s)</button>
 
                     <td style="width:200px" class="text-center">
@@ -107,13 +106,23 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="marca">Marca</label>
-                            <input type="text" class="form-control" id="marca" name="marca"/>
+                            <label for="usuario">Usuário</label>
+                            <select id="usuario" name="usuario" class="form-control">
+                                <option value=""> (Selecione)</option>
+                                <option th:each="usuario: ${usuarios}"
+                                        th:value="${usuario.id}"
+                                        th:text="${usuario.nome}"></option>
+                            </select>
                         </div>
 
                         <div class="form-group">
                             <label for="fornecedor">Fornecedor</label>
-                            <input type="text" class="form-control" id="fornecedor" name="fornecedor"/>
+                            <select id="fornecedor" name="fornecedor" class="form-control">
+                                <option value=""> (Selecione)</option>
+                                <option th:each="fornecedor: ${fornecedores}"
+                                        th:value="${fornecedor.id}"
+                                        th:text="${fornecedor.nome}"></option>
+                            </select>
                         </div>
                     </form>
                 </div> <!-- modal-body -->
