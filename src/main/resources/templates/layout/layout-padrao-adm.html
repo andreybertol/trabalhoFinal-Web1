@@ -80,6 +80,14 @@
                         Produto
                     </a>
                 </li>
+
+                <li class="nav-item"
+                    th:classappend="${#httpServletRequest.getRequestURI().startsWith('/compra') ? 'active':''}">
+                    <a class="nav-link" th:href="@{/compra/page}">
+                        <i class="fa fa-money"></i>
+                        Comprar
+                    </a>
+                </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="text" placeholder="Pesquisar" aria-label="Search">
