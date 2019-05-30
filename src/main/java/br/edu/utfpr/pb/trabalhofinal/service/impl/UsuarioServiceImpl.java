@@ -11,14 +11,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UsuarioServiceImpl extends CrudServiceImpl<Usuario, Integer>
+public class UsuarioServiceImpl extends CrudServiceImpl<Usuario, Long>
 		implements UsuarioService, UserDetailsService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
 	@Override
-	protected JpaRepository<Usuario, Integer> getRepository() {
+	protected JpaRepository<Usuario, Long> getRepository() {
 		return usuarioRepository;
 	}
 

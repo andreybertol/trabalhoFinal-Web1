@@ -3,6 +3,7 @@ package br.edu.utfpr.pb.trabalhofinal.model;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,17 +21,19 @@ import java.util.Set;
 @ToString
 public class Usuario implements Serializable, UserDetails {
 	private static final long serialVersionUID = 1L;
+	private static final BCryptPasswordEncoder bCrypt =
+			new BCryptPasswordEncoder(10);
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-
-	@Column(length = 250, nullable = false)
+	private Long id;
+	
+	@Column(length = 100, nullable = false)
 	private String nome;
 
-	@Column(length = 250, nullable = false)
+	@Column(length = 100, nullable = false)
 	private String username;
-
+	
 	@Column(length = 512, nullable = false)
 	private String password;
 
@@ -74,4 +77,8 @@ public class Usuario implements Serializable, UserDetails {
 		return true;
 	}
 
+	public String getEncodedPassword(String password){
+		return bCrypt.encode(password);
+	}
+	
 }
