@@ -41,8 +41,6 @@
                     <th>Username</th>
                     <th>Permissões</th>
                     <th>Ações</th>
-
-
                 </tr>
                 </thead>
                 <tbody>
@@ -55,7 +53,7 @@
                     <td>
                         <ul class="list-inline">
                             <li class="list-inline-item" th:each="permissao: ${usuario.permissoes}">
-                                <i class="fa-fa-user-tag"></i>
+                                <i class="fa fa-tag"></i>
                                 <span th:text="${permissao.nome}"></span>
                             </li>
                         </ul>

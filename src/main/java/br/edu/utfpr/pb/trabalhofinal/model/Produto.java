@@ -1,14 +1,11 @@
 package br.edu.utfpr.pb.trabalhofinal.model;
 
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "produto")
@@ -48,8 +45,8 @@ public class Produto implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "marca_id", referencedColumnName = "id")
 	private Marca marca;
-	
-	@Column(name = "imagem", length = 250, nullable = true)
+
+	@Column(name = "imagem", length = 100, nullable = true)
 	private String imagem;
 }
 

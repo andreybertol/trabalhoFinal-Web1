@@ -9,14 +9,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UsuarioServiceImpl extends CrudServiceImpl<Usuario, Long>
-		implements UsuarioService, UserDetailsService {
+		implements UsuarioService, UserDetailsService{
+
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	
+
 	@Override
 	protected JpaRepository<Usuario, Long> getRepository() {
 		return usuarioRepository;
@@ -33,4 +36,9 @@ public class UsuarioServiceImpl extends CrudServiceImpl<Usuario, Long>
 		return usuario;
 	}
 
+	@Override
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public Usuario findByUsername(String username) {
+		return usuarioRepository.findByUsername(username);
+	}
 }

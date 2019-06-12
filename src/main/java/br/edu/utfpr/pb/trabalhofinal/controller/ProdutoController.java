@@ -1,5 +1,6 @@
 package br.edu.utfpr.pb.trabalhofinal.controller;
 
+import br.edu.utfpr.pb.trabalhofinal.base64Imagem.Base64Imagem;
 import br.edu.utfpr.pb.trabalhofinal.model.Produto;
 import br.edu.utfpr.pb.trabalhofinal.service.CategoriaService;
 import br.edu.utfpr.pb.trabalhofinal.service.CrudService;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.FileInputStream;
+import java.util.Base64;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.BufferedOutputStream;
@@ -28,7 +32,7 @@ import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("produto")
-public class ProdutoController extends CrudController<Produto, Integer>{
+public class ProdutoController extends CrudController<Produto, Integer> {
 
 	@Autowired
 	private ProdutoService produtoService;
@@ -51,9 +55,9 @@ public class ProdutoController extends CrudController<Produto, Integer>{
 	@GetMapping("new")
 	protected ModelAndView form(Produto produto) {
 		ModelAndView modelAndView = new ModelAndView(this.getURL() + "/form");
-		if (produto != null){
+		if (produto != null) {
 			modelAndView.addObject(produto);
-		}else {
+		} else {
 			modelAndView.addObject(new Produto());
 		}
 		return modelAndView;
@@ -71,7 +75,7 @@ public class ProdutoController extends CrudController<Produto, Integer>{
 
 	@PostMapping("ajax")
 	public ResponseEntity<?> save(@Valid Produto entity, BindingResult result) {
-		if (result.hasErrors()){
+		if (result.hasErrors()) {
 			return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
 		}
 		getService().save(entity);
@@ -80,13 +84,13 @@ public class ProdutoController extends CrudController<Produto, Integer>{
 
 	@GetMapping("ajax/{id}")
 	@ResponseBody
-	public Produto edit(@PathVariable Integer id){
+	public Produto edit(@PathVariable Integer id) {
 		return getService().findOne(id);
 	}
 
 	@GetMapping("page")
 	public ModelAndView list(@RequestParam("page") Optional<Integer> page,
-							 @RequestParam("size")Optional<Integer> size){
+							 @RequestParam("size") Optional<Integer> size) {
 		int currentPage = page.orElse(1);
 		int pageSize = size.orElse(5);
 
@@ -99,7 +103,7 @@ public class ProdutoController extends CrudController<Produto, Integer>{
 		modelAndView.addObject("marcas", marcaService.findAll());
 		modelAndView.addObject("categorias", categoriaService.findAll());
 
-		if (list.getTotalPages() > 0){
+		if (list.getTotalPages() > 0) {
 			List<Integer> pageNumbers = IntStream
 					.rangeClosed(1, list.getTotalPages())
 					.boxed().collect(Collectors.toList());
@@ -114,9 +118,9 @@ public class ProdutoController extends CrudController<Produto, Integer>{
 	public ResponseEntity<?> save(@Valid Produto entity, BindingResult result,
 								  @RequestParam("anexo") MultipartFile anexo,
 								  @RequestParam("anexos") MultipartFile[] anexos,
-								  HttpServletRequest request){
+								  HttpServletRequest request) {
 
-		if ( result.hasErrors() ) {
+		if (result.hasErrors()) {
 			return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
 		}
 		getService().save(entity);
@@ -129,6 +133,8 @@ public class ProdutoController extends CrudController<Produto, Integer>{
 	}
 
 	private void saveFile(Integer id, MultipartFile anexo, HttpServletRequest request) {
+		Base64Imagem codificador = new Base64Imagem();
+
 		File dir = new File(request.getServletContext().getRealPath("/images/"));
 		if (!dir.exists()) { //verifica se o diretório de armazenamento existe
 			dir.mkdirs(); //não existindo, cria o diretório
@@ -141,11 +147,14 @@ public class ProdutoController extends CrudController<Produto, Integer>{
 
 		String nomeArquivo = id + extensao;
 
+		String imgCodificada = codificador.encoder(nomeArquivo);
+
 		try {
 			FileOutputStream fileOut = new FileOutputStream(
 					new File (caminhoAnexo + nomeArquivo));
 
 			BufferedOutputStream stream = new BufferedOutputStream(fileOut);
+
 			stream.write(anexo.getBytes());
 			stream.close();
 

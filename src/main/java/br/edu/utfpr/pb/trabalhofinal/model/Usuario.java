@@ -19,21 +19,21 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @ToString
-public class Usuario implements Serializable, UserDetails {
+public class Usuario implements Serializable, UserDetails{
 	private static final long serialVersionUID = 1L;
-	private static final BCryptPasswordEncoder bCrypt =
-			new BCryptPasswordEncoder(10);
+	private static final BCryptPasswordEncoder bCrypt = new
+			BCryptPasswordEncoder(10);
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(length = 100, nullable = false)
 	private String nome;
 
 	@Column(length = 100, nullable = false)
 	private String username;
-	
+
 	@Column(length = 512, nullable = false)
 	private String password;
 
@@ -45,16 +45,6 @@ public class Usuario implements Serializable, UserDetails {
 		List<GrantedAuthority> list = new ArrayList<>();
 		list.addAll(permissoes);
 		return list;
-	}
-
-	@Override
-	public String getPassword() {
-		return null;
-	}
-
-	@Override
-	public String getUsername() {
-		return null;
 	}
 
 	@Override
@@ -77,8 +67,8 @@ public class Usuario implements Serializable, UserDetails {
 		return true;
 	}
 
-	public String getEncodedPassword(String password){
+	public String getEncodedPassword(String password) {
 		return bCrypt.encode(password);
 	}
-	
+
 }

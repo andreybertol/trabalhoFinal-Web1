@@ -31,13 +31,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.and().logout()
 			.logoutSuccessUrl("/login")
 			.and().authorizeRequests()
-				/*.antMatchers("/usuario/**").hasAnyRole("ADMIN")
+				.antMatchers("/usuario/**").hasAnyRole("ADMIN")
 				.antMatchers("/produto/**").hasAnyRole("USER", "ADMIN")
 				.antMatchers("/fornecedor/**").hasAnyRole("USER", "ADMIN")
 				.antMatchers("/categoria/**").hasAnyRole("USER", "ADMIN")
-				.antMatchers("/marca/**").hasAnyRole("USER", "ADMIN")*/
-				.antMatchers("/**").permitAll(); /*apenas para teste - REMOVER*/
-				//.antMatchers("/**").authenticated();
+				.antMatchers("/marca/**").permitAll()
+				.antMatchers("/compra/**").hasAnyRole("ADMIN")
+				//.antMatchers("/**").permitAll(); /*apenas para teste - REMOVER*/
+				.antMatchers("/**").authenticated();
 	}
 
 	@Override

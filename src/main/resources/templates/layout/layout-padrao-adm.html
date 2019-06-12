@@ -21,6 +21,10 @@
     <link rel="stylesheet" th:href="@{/css/estilo.css}"/>
     <link rel="stylesheet" th:href="@{/vendors/sweetalert/sweetalert.css}"/>
     <link rel="stylesheet" th:href="@{/vendors/bootstrap-datepicker/css/bootstrap-datepicker.min.css}"/>
+
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/css/uikit.min.css" />
+
 </head>
 
 <body>
@@ -42,6 +46,7 @@
                         Principal
                     </a>
                 </li>
+
                 <li class="nav-item"
                     th:classappend="${#httpServletRequest.getRequestURI().startsWith('/usuario') ? 'active':''}">
                     <a class="nav-link" th:href="@{/usuario/page}">
@@ -113,5 +118,8 @@
     });
 </script>
 <script type="text/javascript" th:src="@{/js/crud.js}"></script>
+<!-- UIkit JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit-icons.min.js"></script>
 </body>
 </html>

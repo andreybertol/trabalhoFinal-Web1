@@ -5,6 +5,7 @@ import br.edu.utfpr.pb.trabalhofinal.model.Usuario;
 import br.edu.utfpr.pb.trabalhofinal.service.CrudService;
 import br.edu.utfpr.pb.trabalhofinal.service.PermissaoService;
 import br.edu.utfpr.pb.trabalhofinal.service.UsuarioService;
+import org.hibernate.annotations.NamedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -45,10 +46,10 @@ public class UsuarioController
     @Override
     @GetMapping("new")
     protected ModelAndView form(Usuario entity) {
-        ModelAndView modelAndView = new ModelAndView(this.getURL() + "/form");
-        if (entity == null){
+        ModelAndView modelAndView = new ModelAndView(getURL() + "/form");
+        if (entity == null) {
             modelAndView.addObject("usuario", new Usuario());
-        }else {
+        } else {
             modelAndView.addObject("usuario", entity);
         }
         return modelAndView;
@@ -61,14 +62,15 @@ public class UsuarioController
 
     @GetMapping("ajax/{id}")
     @ResponseBody
-    public Usuario edit(@PathVariable Long id){
+    public Usuario edit(@PathVariable Long id) {
         return getService().findOne(id);
     }
 
+
     @PostMapping("ajax")
-    public ResponseEntity<?> saveAjax(@Valid Usuario entity, BindingResult result,
-                                      RedirectAttributes attributes) {
-        if (result.hasErrors()){
+    public ResponseEntity<?> saveAjax(@Valid Usuario entity,
+                                      BindingResult result, RedirectAttributes attributes) {
+        if (result.hasErrors()) {
             return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
 
