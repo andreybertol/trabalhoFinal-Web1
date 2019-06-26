@@ -40,7 +40,6 @@
                     <th>Data da Compra</th>
                     <th>Usuário</th>
                     <th>Fornecedor</th>
-                    <th>Produtos(s)</th>
                     <th>Ações</th>
                 </tr>
                 </thead>
@@ -52,7 +51,6 @@
                     <td><a th:text="${compra.data_compra}">...</a></td>
                     <td><a th:text="${compra.usuario.nome}">...</a></td>
                     <td><a th:text="${compra.fornecedor.nome}">...</a></td>
-                    <button type="button">Produto(s)</button>
 
                     <td style="width:200px" class="text-center">
                         <a th:href="'javascript:editCompra(\'/compra/ajax/' + ${compra.id} + '\');'"
@@ -81,7 +79,8 @@
             </nav>
         </div>
     </div>
-    <div class="modal modal-form" th:id="modal-form">
+
+    <div class="modal modal-form" th:id="modal-form-compra">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -132,7 +131,7 @@
                             aria-hidden="true">Cancelar
                     </button>
                     <button type="button" class="btn btn-success"
-                            onclick="save('/compra/page')">Salvar
+                            onclick="saveJson('page')">Salvar
                     </button>
                 </div> <!-- modal-footer -->
             </div> <!-- modal-content -->
