@@ -10,9 +10,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -65,6 +67,17 @@ public class CompraController extends CrudController<Compra, Integer> {
         modelAndView.addObject(this.getService().findOne(id));
 
         return modelAndView;
+    }
+    
+    // validar
+    @PostMapping("json")
+    public ResponseEntity<?> saveJson(@RequestBody @Valid Compra entity, BindingResult result, Model model,
+                                      RedirectAttributes attributes) {
+        if (result.hasErrors()) {
+            return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
+        getService().save(entity);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
 

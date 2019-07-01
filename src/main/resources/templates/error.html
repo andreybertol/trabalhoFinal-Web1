@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout-error}">
+<head>
+</head>
+<body>
+<section layout:fragment="conteudo">
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="jumbotron col-md-10">
+                <h1>Ocorreu um erro.</h1>
+
+                <div th:if="${exception==null}"
+                     class="alert alert-warning">
+                    A página que você está procurando não foi encontrada.
+                </div>
+
+                <div th:unless="${exception==null}"
+                     class="alert alert-warning">
+                    Origem: <span th:text="${url}"></span>
+                    <div class="alert alert-danger">
+                        Erro: <span th:text="${exception}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

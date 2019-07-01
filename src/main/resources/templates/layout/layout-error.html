@@ -22,35 +22,75 @@
 <body>
 	<header>
 		<!-- Fixed navbar -->
-		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-			<a class="navbar-brand  hidden-xs" href="/"> <img
-				class="small-logo" alt="UTFPR"
-				th:src="@{/images/logo.png}" />
-			</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarCollapse" aria-controls="navbarCollapse"
-				aria-expanded="false" aria-label="Toggle navigation">
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+			<a class="navbar-brand" href="#">bertol Sistemas</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+					aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<div class="collapse navbar-collapse" id="navbarCollapse">
+
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI().startsWith('/home') ? 'active':''}">
-						<a class="nav-link"  th:href="@{/home}"><i class="fa fa-home"></i> Principal</a>
+					<li class="nav-item"
+						th:classappend="${#httpServletRequest.getRequestURI().startsWith('/home') ? 'active':''}">
+						<a class="nav-link" th:href="@{/home}">
+							<i class="fa fa-home"></i>
+							Principal
+						</a>
 					</li>
-					<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI().startsWith('/genero') ? 'active':''}">
-						<a class="nav-link" th:href="@{/genero}"><i class="fa fa-book"></i> Gêneros</a>
+
+					<li class="nav-item"
+						th:classappend="${#httpServletRequest.getRequestURI().startsWith('/usuario') ? 'active':''}">
+						<a class="nav-link" th:href="@{/usuario/page}">
+							<i class="fa fa-user"></i>
+							Usuários
+						</a>
 					</li>
-					<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI().startsWith('/produtora') ? 'active':''}">
-						<a class="nav-link" th:href="@{/produtora/page}"><i class="fa fa-film"></i> Produtoras</a>
+
+					<li class="nav-item"
+						th:classappend="${#httpServletRequest.getRequestURI().startsWith('/marca') ? 'active':''}">
+						<a class="nav-link" th:href="@{/marca/page}">
+							<i class="fa fa-copyright"></i>
+							Marcas
+						</a>
 					</li>
-					<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI().startsWith('/serie') ? 'active':''}">
-						<a class="nav-link" th:href="@{/serie}"><i class="fa fa-tv"></i> Série</a>
+
+					<li class="nav-item"
+						th:classappend="${#httpServletRequest.getRequestURI().startsWith('/categoria') ? 'active':''}">
+						<a class="nav-link" th:href="@{/categoria/page}">
+							<i class="fa fa-laptop-code"></i>
+							Categorias
+						</a>
 					</li>
-					<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI().startsWith('/episodio') ? 'active':''}">
-						<a class="nav-link" th:href="@{/episodio}"><i class="fa fa-couch"></i> Episódio</a>
+
+					<li class="nav-item"
+						th:classappend="${#httpServletRequest.getRequestURI().startsWith('/fornecedor') ? 'active':''}">
+						<a class="nav-link" th:href="@{/fornecedor/page}">
+							<i class="fa fa-truck"></i>
+							Fornecedor
+						</a>
+					</li>
+
+					<li class="nav-item"
+						th:classappend="${#httpServletRequest.getRequestURI().startsWith('/produto') ? 'active':''}">
+						<a class="nav-link" th:href="@{/produto/page}">
+							<i class="fa fa-beer"></i>
+							Produto
+						</a>
+					</li>
+
+					<li class="nav-item"
+						th:classappend="${#httpServletRequest.getRequestURI().startsWith('/compra') ? 'active':''}">
+						<a class="nav-link" th:href="@{/compra/page}">
+							<i class="fa fa-hryvnia"></i>
+							Comprar
+						</a>
 					</li>
 				</ul>
-				<a th:href="@{/logout}" class="btn btn-outline-danger"><i class="fa fa-sign-out-alt"></i> Sair</a>
+				<form class="form-inline my-2 my-lg-0">
+					<input class="form-control mr-sm-2" type="text" placeholder="Pesquisar" aria-label="Search">
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+				</form>
 			</div>
 		</nav>
 	</header>
