@@ -35,6 +35,10 @@
   }
 }
 
+#modal-form-produto{
+  background-color: rgba(86, 86, 86, 0.66);
+}
+
 .page-header {
   padding-bottom: 8px;
   margin: 50px 0 18px;

@@ -16,9 +16,8 @@
             </div>
             <div class="row">
                 <div class="col-xs-4">
-                    <a class="btn btn-primary" th:href="@{/compra/new}">
-                        <i class="fa fa-plus-square"></i> Novo Registro
-                    </a>
+                    <a class="btn btn-primary" data-toggle="modal"
+                       data-target="#modal-form"><i class="fa fa-plus-square"></i> Novo Registro</a>
                 </div>
             </div>
         </div>
@@ -46,16 +45,15 @@
                 <tbody>
                 <tr th:id="'row_' + ${compra.id}" th:each="compra: ${list.content}">
                     <td style="width:150px" class="text-center" th:text="${compra.id}">0</td>
-                    <td><a th:href="'javascript:edit(\'/compra/ajax/' + ${compra.id} + '\');'"
-                           th:text="${compra.descricao}">...</a></td>
+                    <td><a th:text="${compra.descricao}">...</a></td>
                     <td><a th:text="${compra.data_compra}">...</a></td>
                     <td><a th:text="${compra.usuario.nome}">...</a></td>
                     <td><a th:text="${compra.fornecedor.nome}">...</a></td>
 
                     <td style="width:200px" class="text-center">
-                        <a th:href="'javascript:editCompra(\'/compra/ajax/' + ${compra.id} + '\');'"
-                           class="btn btn-primary btn-xs"> <i class="fa fa-edit"></i>
-                        </a> &nbsp;
+                        <a th:href="'javascript:editCompraProdutos(\'/compraProdutos/ajax/' + ${compra.id} + '\');'"
+                           class="btn btn-primary btn-xs"> <i class="fa fa-eye"></i>
+                        </a>
                         <a th:href="'javascript:remove('+ ${compra.id} +',\'/compra\');'"
                            class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
                     </td>
@@ -80,7 +78,7 @@
         </div>
     </div>
 
-    <div class="modal modal-form" th:id="modal-form-compra">
+    <div class="modal modal-form" th:id="modal-form">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -90,19 +88,18 @@
                     </button>
                 </div> <!-- modal-header -->
                 <div class="modal-body">
-                    <form id="frm" name="frm"
-                          method="POST" class="form-vertical"
-                          th:action="@{/compra/ajax}">
-
+                    <form id="frm" name="frm" method="POST" class="form-vertical" th:action="@{/compra/json}">
                         <input type="hidden" id="id" name="id"/>
                         <div class="form-group">
-                            <label for="descricao">Descricao</label>
+                            <label for="descricao">Descrição</label>
                             <input type="text" class="form-control" id="descricao" name="descricao"/>
                         </div>
 
                         <div class="form-group">
-                            <label for="dataCompra">Data da Compra</label>
-                            <input type="date" class="form-control" id="dataCompra" name="dataCompra"/>
+                            <label for="data_compra">Data Compra:</label>
+                            <input type="text"
+                                   class="datepicker form-control"
+                                   id="data_compra" name="data_compra"/>
                         </div>
 
                         <div class="form-group">
@@ -127,16 +124,57 @@
                     </form>
                 </div> <!-- modal-body -->
                 <div class="modal-footer">
-                    <button type="button" class="btn" data-dismiss="modal"
-                            aria-hidden="true">Cancelar
+                    <!--                    <div class="col-xs-4">-->
+                    <button type="button" class="btn" data-toggle="modal"
+                            data-target="#modal-form-produto"><i class="fa fa-plus-square"></i> Adicionar Produto</button>
+                    <!--                    </div>-->
+
+                    <button type="button" class="btn" data-dismiss="modal"aria-hidden="true">Cancelar
                     </button>
-                    <button type="button" class="btn btn-success"
-                            onclick="saveJson('page')">Salvar
+                    <button type="button" class="btn btn-success"onclick="saveJsonCompra('page')">Salvar
                     </button>
                 </div> <!-- modal-footer -->
             </div> <!-- modal-content -->
         </div> <!-- modal-dialog -->
     </div>
+
+    <!-- form para adicionar produtos à compra -->
+    <div class="modal modal-form" th:id="modal-form-produto">
+        <div class="modal-dialog">
+            <div class="modal-content" th:id="modal-content-produto">
+                <div class="modal-header">
+                    <h3>Adicionar Produto</h3>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">x
+                    </button>
+                </div> <!-- modal-header -->
+                <div class="modal-body">
+                    <form id="frmProduto" name="frmProduto" method="POST" class="form-vertical"
+                          th:action="@{/compra/json}">
+                        <input type="hidden" id="idProduto" name="idProduto"/>
+                        <div class="form-group">
+                            <label for="produto">Produto</label>
+                            <select id="produto" name="produto" class="form-control">
+                                <option value=""> (Selecione)</option>
+                                <option th:each="produto: ${produtos}"
+                                        th:value="${produto.id}"
+                                        th:text="${produto.nome} + '- Valor(R$): ' + ${produto.valor} ">
+                                </option>
+                            </select>
+                        </div>
+                    </form>
+                </div> <!-- modal-body -->
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal"aria-hidden="true">Cancelar
+                    </button>
+                    <button type="button" class="btn btn-success"onclick="addCompraProduto()">Salvar
+                    </button>
+                </div> <!-- modal-footer -->
+            </div> <!-- modal-content -->
+        </div> <!-- modal-dialog -->
+    </div>
+
+    <script type="text/javascript" th:src="@{/js/crud-compras.js}"></script>
 </section>
 </body>
 </html>

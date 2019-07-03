@@ -27,15 +27,11 @@ public class CompraProduto implements Serializable {
     private Double valor;
 
     @ManyToOne
+    @NotNull(message = "Insira um Produto!")
     @JoinColumn(name = "produto_id", referencedColumnName = "id")
     private Produto produto;
 
     @ManyToOne
     @JoinColumn(name = "compra_id", referencedColumnName = "id")
     private Compra compra;
-
-    @NotNull(message = "Preencha o campo fornecedor!")
-    @ManyToOne
-    @JoinColumn(name = "fornecedor_id", referencedColumnName = "id")
-    private Fornecedor fornecedor;
 }

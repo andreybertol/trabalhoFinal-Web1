@@ -32,7 +32,6 @@ public class UsuarioController
     private UsuarioService usuarioService;
     @Autowired
     private PermissaoService permissaoService;
-
     @Override
     protected CrudService<Usuario, Long> getService() {
         return usuarioService;
@@ -65,7 +64,6 @@ public class UsuarioController
     public Usuario edit(@PathVariable Long id) {
         return getService().findOne(id);
     }
-
 
     @PostMapping("ajax")
     public ResponseEntity<?> saveAjax(@Valid Usuario entity,

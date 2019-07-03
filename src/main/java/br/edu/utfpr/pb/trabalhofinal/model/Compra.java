@@ -30,7 +30,7 @@ public class Compra implements Serializable{
 	@NotNull(message = "Preencha o campo data da compra!")
 	@Column(name = "data_compra", nullable = false)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date data_compra;
+	private LocalDate data_compra;
 
 	@OneToMany(mappedBy = "compra",
 			cascade = {CascadeType.PERSIST,CascadeType.REMOVE},
@@ -45,6 +45,9 @@ public class Compra implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "fornecedor_id", referencedColumnName = "id")
 	private Fornecedor fornecedor;
+
+	@Column(name = "valor_total")
+    private Double valor_total;
 
 }
 

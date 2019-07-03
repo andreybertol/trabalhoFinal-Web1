@@ -41,66 +41,36 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item"
                     th:classappend="${#httpServletRequest.getRequestURI().startsWith('/home') ? 'active':''}">
-                    <a class="nav-link" th:href="@{/home}">
-                        <i class="fa fa-home"></i>
-                        Principal
-                    </a>
+                    <a class="nav-link" th:href="@{/home}"><i class="fa fa-home"></i>Principal</a>
                 </li>
-
                 <li class="nav-item"
                     th:classappend="${#httpServletRequest.getRequestURI().startsWith('/marca') ? 'active':''}">
-                    <a class="nav-link" th:href="@{/marca/page}">
-                        <i class="fa fa-copyright"></i>
-                        Marcas
-                    </a>
+                    <a class="nav-link" th:href="@{/marca/page}"><i class="fa fa-copyright"></i>Marcas</a>
                 </li>
-
                 <li class="nav-item"
                     th:classappend="${#httpServletRequest.getRequestURI().startsWith('/categoria') ? 'active':''}">
-                    <a class="nav-link" th:href="@{/categoria/page}">
-                        <i class="fa fa-laptop-code"></i>
-                        Categorias
-                    </a>
+                    <a class="nav-link" th:href="@{/categoria/page}"><i class="fa fa-laptop-code"></i>Categorias</a>
                 </li>
-
                 <li class="nav-item"
                     th:classappend="${#httpServletRequest.getRequestURI().startsWith('/fornecedor') ? 'active':''}">
-                    <a class="nav-link" th:href="@{/fornecedor/page}">
-                        <i class="fa fa-truck"></i>
-                        Fornecedor
-                    </a>
+                    <a class="nav-link" th:href="@{/fornecedor/page}"> <i class="fa fa-truck"></i>Fornecedor</a>
                 </li>
-
                 <li class="nav-item"
                     th:classappend="${#httpServletRequest.getRequestURI().startsWith('/produto') ? 'active':''}">
-                    <a class="nav-link" th:href="@{/produto/page}">
-                        <i class="fa fa-beer"></i>
-                        Produto
-                    </a>
+                    <a class="nav-link" th:href="@{/produto/page}"><i class="fa fa-beer"></i>Produto</a>
                 </li>
-
                 <li class="nav-item"
                     th:classappend="${#httpServletRequest.getRequestURI().startsWith('/compra') ? 'active':''}">
-                    <a class="nav-link" th:href="@{/compra/page}">
-                        <i class="fa fa-hryvnia"></i>
-                        Comprar
-                    </a>
+                    <a class="nav-link" th:href="@{/compra/page}"><i class="fa fa-hryvnia"></i>Comprar</a>
                 </li>
-
                 <li class="nav-item"
                     th:classappend="${#httpServletRequest.getRequestURI().startsWith('/usuario') ? 'active':''}">
-                    <a class="nav-link" th:href="@{/usuario/page}">
-                        <i class="fa fa-user"></i>
-                        Usuários
-                    </a>
+                    <a class="nav-link" th:href="@{/usuario/page}"><i class="fa fa-user"></i>Usuários</a>
                 </li>
-
             </ul>
+            <div sec:authorize="hasRole('ROLE_ADMIN')">Texto apenas para o admin</div>
 
-            <form class="form-inline my-2 my-lg-0">
-<!--                <input class="form-control mr-sm-2" type="text" placeholder="Pesquisar" aria-label="Search">-->
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
-            </form>
+            <a th:href="@{/logout}" class="btn btn-outline-danger"><i class="fa fa-sign-out-alt"></i> Sair</a>
         </div>
     </nav>
 </header>
