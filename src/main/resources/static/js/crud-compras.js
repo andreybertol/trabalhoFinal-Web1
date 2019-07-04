@@ -29,6 +29,29 @@ function saveJsonCompra(urlDestino) {
     });// Fim ajax
 }
 
+function calcularPreco(){
+
+    if ($("#this").val() != ""){
+
+        total = $("#this").val() * $("#valorProduto").val()
+
+        $("#preco").val($("#this").val());
+    }
+}
+
+function mostrarQuantidade(){
+    $("#divQuantidade").hide();
+
+    if ($("#produto").val() != "") {
+        $("#divQuantidade").show();
+        $("#valorProduto").val();
+    }
+}
+
+function buscarProduto(idProduto){
+    $('')
+}
+
 function addCompraProduto() {
 
     if ($("produto").val() == ''){
@@ -36,7 +59,7 @@ function addCompraProduto() {
     }
 
     var compraProduto = {
-        produto: {id:  $("produto").val()},
+        produto: {id:  $("codigoProduto").val()},
         // pegar no texto hidden
         valor: $("produto").val().get(),
         quantidade: $("quantidade").val(),

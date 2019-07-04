@@ -23,6 +23,7 @@
   transition: all 0.5s;
   background-color: #ffffff;
 }
+
 @media (min-width: 992px) {
   .ut-layout-content.is-toggled {
     margin-left: 0;
