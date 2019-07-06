@@ -16,8 +16,9 @@
             </div>
             <div class="row">
                 <div class="col-xs-4">
-                    <a class="btn btn-primary" data-toggle="modal"
-                       data-target="#modal-form"><i class="fa fa-plus-square"></i> Novo Registro</a>
+                    <a class="btn btn-primary" th:href="@{/compra/new}">
+                        <i class="fa fa-plus-square"></i> Nova Compra
+                    </a>
                 </div>
             </div>
         </div>
@@ -49,13 +50,10 @@
                     <td><a th:text="${compra.descricao}">...</a></td>
                     <td><a th:text="${compra.data_compra}">...</a></td>
                     <td><a th:text="${compra.usuario.nome}">...</a></td>
-                    <td><a th:text="${compra.valor_total}">...</a></td>
                     <td><a th:text="${compra.fornecedor.nome}">...</a></td>
+                    <td><a th:text="${compra.valor_total}">...</a></td>
 
                     <td style="width:200px" class="text-center">
-                        <a th:href="'javascript:editCompraProdutos(\'/compraProdutos/ajax/' + ${compra.id} + '\');'"
-                           class="btn btn-primary btn-xs"> <i class="fa fa-eye"></i>
-                        </a>
                         <a th:href="'javascript:remove('+ ${compra.id} +',\'/compra\');'"
                            class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
                     </td>
@@ -78,158 +76,6 @@
                 </ul>
             </nav>
         </div>
-    </div>
-
-    <div class="modal modal-form" th:id="modal-form">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>Compra de Produtos</h3>
-                    <button type="button" class="close" data-dismiss="modal"
-                            aria-hidden="true">x
-                    </button>
-                </div> <!-- modal-header -->
-                <div class="modal-body">
-
-                    <div class="row">
-
-                        <div class="col-xs-6">
-
-                            <form id="frm" name="frm" method="POST" class="form-vertical" th:action="@{/compra/json}">
-                                <input type="hidden" id="id" name="id"/>
-                                <div class="form-group">
-                                    <label for="descricao">Descrição</label>
-                                    <input type="text" class="form-control" id="descricao" name="descricao"/>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="data_compra">Data Compra:</label>
-                                    <input type="text"
-                                           class="datepicker form-control"
-                                           id="data_compra" name="data_compra"/>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="usuario">Usuário</label>
-                                    <select id="usuario" name="usuario" class="form-control">
-                                        <option value=""> (Selecione)</option>
-                                        <option th:each="usuario: ${usuarios}"
-                                                th:value="${usuario.id}"
-                                                th:text="${usuario.nome}"></option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="fornecedor">Fornecedor</label>
-                                    <select id="fornecedor" name="fornecedor" class="form-control">
-                                        <option value=""> (Selecione)</option>
-                                        <option th:each="fornecedor: ${fornecedores}"
-                                                th:value="${fornecedor.id}"
-                                                th:text="${fornecedor.nome}"></option>
-                                    </select>
-                                </div>
-                            </form>
-
-                        </div>
-
-                        <div class="col-xs-6">
-
-                            <table id="tabela-produtos-inseridos"
-                                   class="table  table-striped  table-bordered  table-hover  table-condensed">
-                                <thead class="ut-table-header-solid">
-                                <tr>
-                                    <th>Produto</th>
-                                    <th>Preço (R$)</th>
-                                    <th>Quantidade</th>
-                                    <th>Total (R$)</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:id="'row_' + ${compraProduto.id}" th:each="compraProduto: ${list.content}">
-                                    <td style="width:150px" class="text-center" th:text="${compraProduto.id}">0</td>
-                                    <td><a th:text="${compraProduto.produto.nome}">...</a></td>
-                                    <td><a th:text="${compraProduto.valor}">...</a></td>
-                                    <td><a th:text="${compraProduto.qtde}">...</a></td>
-
-                                    <td style="width:200px" class="text-center">
-                                        <a th:href="'javascript:remove('+ ${compra.id} +',\'/compra\');'"
-                                           class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
-                                    </td>
-                                </tr>
-                                <tr th:if="${list.empty}">
-                                    <td colspan="7">Nenhum registro encontrado.</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-
-                </div> <!-- modal-body -->
-                <div class="modal-footer">
-                    <button type="button" class="btn" data-toggle="modal"
-                            data-target="#modal-form-produto"><i class="fa fa-plus-square"></i> Adicionar Produto
-                    </button>
-
-                    <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar
-                    </button>
-                    <button type="button" class="btn btn-success" onclick="saveJsonCompra('page')">Salvar
-                    </button>
-                </div> <!-- modal-footer -->
-            </div> <!-- modal-content -->
-        </div> <!-- modal-dialog -->
-    </div>
-
-    <!-- form para adicionar produtos à compra -->
-    <div class="modal modal-form" id="modal-form-produto">
-        <div class="modal-dialog">
-            <div class="modal-content" id="modal-content-produto">
-                <div class="modal-header">
-                    <h3>Adicionar Produto</h3>
-                    <button type="button" class="close" data-dismiss="modal"
-                            aria-hidden="true">x
-                    </button>
-                </div> <!-- modal-header -->
-                <div class="modal-body">
-                    <h6 type="hidden" id="valorProduto" th:value="${produto.valor}"></h6>
-
-                    <form id="frmProduto" name="frmProduto" method="POST" class="form-vertical"
-                          th:action="@{/compra/json}">
-                        <input type="hidden" id="dropProduto" name="dropProduto"/>
-                        <div class="form-group">
-                            <label for="produto">Produto</label>
-                            <select onchange="return mostrarQuantidade();" id="produto" name="produto"
-                                    class="uk-form-width-medium">
-                                <option value=""> (Selecione)</option>
-                                <option th:each="produto: ${produtos}"
-                                        th:value="${produto.id}"
-                                        th:text="${produto.nome} + '- Valor(R$): ' + ${produto.valor}">
-                                </option>
-                            </select>
-                        </div>
-
-                        <div class="form-group" style="display: none;" id="divQuantidade">
-                            <label for="quantidade">Quantidade</label>
-                            <input type="number" id="quantidade" oninput="calcularPreco()"
-                                   name="quantidade"/>
-
-                            <div class="uk-form-vertical">
-                                <label for="preco">Preço (R$)</label>
-                                <input type="number" id="preco" name="preco"
-                                       />
-                            </div>
-                        </div>
-
-                    </form>
-                </div> <!-- modal-body -->
-                <div class="modal-footer">
-                    <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar
-                    </button>
-                    <button type="button" class="btn btn-success" onclick="addCompraProduto()">Salvar
-                    </button>
-                </div> <!-- modal-footer -->
-            </div> <!-- modal-content -->
-        </div> <!-- modal-dialog -->
     </div>
 
     <script type="text/javascript" th:src="@{/js/crud-compras.js}"></script>

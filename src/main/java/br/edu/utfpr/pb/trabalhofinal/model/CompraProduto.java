@@ -21,7 +21,7 @@ public class CompraProduto implements Serializable {
     private Integer id;
 
     @Column(nullable = false)
-    private Integer qtde;
+    private Integer quantidade;
 
     @Column(nullable = false)
     private Double valor;

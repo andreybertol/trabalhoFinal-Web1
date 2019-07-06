@@ -1,27 +1,26 @@
-var arrayProdutos = {
-
+var compra = {
+    "fornecedor": {},
+    "descricao": String,
+    "data_compra": String(),
+    "usuario": {},
+    "valorTotal": 0,
+    "compraProdutos": new Array
 };
 
 function saveJsonCompra(urlDestino) {
-    var compra = {
-        id: ($("#id").val() != '' ? $("#id").val() : null),
-        descricao: $("#descricao").val(),
-        data_compra: formatDate($("#data_compra").val()),
-        usuario: {id : $("#usuario").val()},
-        fornecedor: {id: $("#fornecedor").val()},
-        compraProduto: [arrayProdutos]
-    }
-
-    console.log(JSON.stringify(compra));
+    compra.fornecedor.id = $('#fornecedor option:selected').val();
+    compra.usuario.id = $('#usuario option:selected').val();
+    compra.descricao = $('#descricao').val();
+    compra.data_compra = new Date().toLocaleDateString().split('/').reverse().join('-')
 
     $.ajax({
-        type: $('#frm').attr('method'),
-        url: $('#frm').attr('action'),
+        method: 'POST',
+        url: urlDestino,
         contentType: 'application/json',
-        data: JSON.stringify(compra),
+        data    : JSON.stringify(compra),
         success: function () {
             swal('Salvo!', 'Registro salvo com sucesso!', 'success');
-            window.location = urlDestino;
+            window.location = '/compra/page';
         },
         error: function () {
             swal('Erro!', 'Falha ao salvar registro!', 'error');
@@ -29,44 +28,48 @@ function saveJsonCompra(urlDestino) {
     });// Fim ajax
 }
 
-function calcularPreco(){
+$('#quantidade').on('input', function (e) {
+    var valor = Number($('#valor').val());
+    var quantidade = Number($('#quantidade').val());
 
-    if ($("#this").val() != ""){
+    var valorTotal = valor * quantidade;
 
-        total = $("#this").val() * $("#valorProduto").val()
+    $('#valorTotal').val(valorTotal);
+});
 
-        $("#preco").val($("#this").val());
-    }
-}
 
-function mostrarQuantidade(){
-    $("#divQuantidade").hide();
-
-    if ($("#produto").val() != "") {
-        $("#divQuantidade").show();
-        $("#valorProduto").val();
-    }
-}
-
-function buscarProduto(idProduto){
-    $('')
-}
+$('#produto').on('input', function (e) {
+    var precoProduto = Number($('#produto option:selected').attr('valorProduto'));
+    $('#valor').val(precoProduto);
+});
 
 function addCompraProduto() {
 
-    if ($("produto").val() == ''){
-        sweetAlert('Selecione um produto!');
-    }
+    var produtoLista = {};
 
-    var compraProduto = {
-        produto: {id:  $("codigoProduto").val()},
-        // pegar no texto hidden
-        valor: $("produto").val().get(),
-        quantidade: $("quantidade").val(),
-    };
+    var nome = $('#produto option:selected').text();
+    var quantidade = Number($('#quantidade').val());
+    var valor = Number($('#valor').val());
+    var produto = Number($('#produto').val());
+    produtoLista.produto = {};
+    produtoLista.produto.id = produto;
+    produtoLista.quantidade = quantidade;
+    produtoLista.valor = valor;
 
-    //array que vai manter todos os produtos selecionados
-    arrayProdutos.push(compraProduto);
+    compra.compraProdutos.push(produtoLista);
+
+    var rowData = produtoLista;
+    var rowStr = "<tr>"
+        + "<td>" + produto + "</td>"
+        + "<td>" + nome + "</td>"
+        + "<td>" + rowData.valor + "</td>"
+        + "<td>" + rowData.quantidade + "</td>"
+        + "<td>" + rowData.valor*rowData.quantidade + "</td>"
+        + "</tr>"
+    $("#tableProdutos tbody").append(rowStr);
+
+    $('#modal-form-produto').modal('hide');
+
 }
 
 function editCompra(url) {
@@ -80,10 +83,11 @@ function editCompra(url) {
     $('#modal-form').modal();
 }
 
-function formatDate(inputFormat){
-    function pad(s){
+function formatDate(inputFormat) {
+    function pad(s) {
         return (s < 10) ? '0' + s : s;
     }
+
     var d = new Date(inputFormat);
-    return [ d.getFullYear(), pad(d.getMonth()+1), pad(d.getDate()) ].join('-');
+    return [d.getFullYear(), pad(d.getMonth() + 1), pad(d.getDate())].join('-');
 }

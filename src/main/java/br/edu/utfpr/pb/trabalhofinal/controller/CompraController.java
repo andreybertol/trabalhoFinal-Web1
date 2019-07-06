@@ -50,8 +50,15 @@ public class CompraController extends CrudController<Compra, Integer> {
     @GetMapping("new")
     protected ModelAndView form(Compra compra) {
         ModelAndView modelAndView = new ModelAndView(this.getURL() + "/form");
+
+        modelAndView.addObject("usuarios", usuarioService.findAll());
+        modelAndView.addObject("fornecedores", fornecedorService.findAll());
+        modelAndView.addObject("produtos", produtoService.findAll());
+
         if (compra != null) {
+
             modelAndView.addObject(compra);
+
         } else {
             modelAndView.addObject(new Compra());
         }
@@ -113,12 +120,17 @@ public class CompraController extends CrudController<Compra, Integer> {
             return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
 
+        entity.setUsuario(usuarioService.findOne(entity.getUsuario().getId()));
+        entity.setFornecedor(fornecedorService.findOne(entity.getFornecedor().getId()));
+
+        getService().save(entity);
+
         Double valorTotal = 0.0;
 
         // percorre detalhe apenas se houver produtos inseridos
         for (CompraProduto cp : entity.getCompraProdutos()) {
             cp.setProduto(produtoService.findOne(cp.getProduto().getId()));
-            valorTotal = cp.getQtde() * cp.getProduto().getValor();
+            valorTotal = cp.getQuantidade() * cp.getProduto().getValor();
             cp.setValor(valorTotal);
             cp.setCompra(entity);
 
@@ -128,10 +140,11 @@ public class CompraController extends CrudController<Compra, Integer> {
         }
 
         entity.setValor_total(valorTotal);
+
         getService().save(entity);
 
         return new ResponseEntity<>(HttpStatus.OK);
-    }
+}
 }
 
 

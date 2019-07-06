@@ -10,6 +10,8 @@
 
     <title>bertol Sistemas</title>
 
+    <script type="text/javascript" th:src="@{/vendors/jquery/jquery.js}"></script>
+
     <link rel="shortcut icon" th:href="@{/images/favicon.ico}"/>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -58,7 +60,7 @@
                 </li>
                 <li class="nav-item"
                     th:classappend="${#httpServletRequest.getRequestURI().startsWith('/compra') ? 'active':''}">
-                    <a class="nav-link" th:href="@{/compra/page}"><i class="fa fa-hryvnia"></i>Comprar</a>
+                    <a class="nav-link" th:href="@{/compra/new}"><i class="fa fa-hryvnia"></i>Comprar</a>
                 </li>
                 <li class="nav-item"
                     th:classappend="${#httpServletRequest.getRequestURI().startsWith('/usuario') ? 'active':''}">
@@ -137,7 +139,6 @@
 </div>
 <!-- END OF FOOTER -->
 
-<script type="text/javascript" th:src="@{/vendors/jquery/jquery.js}"></script>
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script type="text/javascript" th:src="@{/vendors/sweetalert/sweetalert-dev.js}"></script>
 <script type="text/javascript" th:src="@{/vendors/bootstrap-datepicker/js/bootstrap-datepicker.min.js}"></script>
