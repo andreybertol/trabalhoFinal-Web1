@@ -126,28 +126,24 @@ public class ProdutoController extends CrudController<Produto, Integer> {
 		getService().save(entity);
 
 		if (anexo != null) {
-			saveFile(entity.getId(), anexo, request);
+			saveFile(entity.getId(), anexo);
 		}
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	private void saveFile(Integer id, MultipartFile anexo, HttpServletRequest request) {
-		Base64Imagem codificador = new Base64Imagem();
-
-		File dir = new File(request.getServletContext().getRealPath("/images/"));
+	private void saveFile(Integer id, MultipartFile anexo) {
+		File dir = new File("C:\\projetoFinal\\imagens\\");
 		if (!dir.exists()) { //verifica se o diretório de armazenamento existe
-			dir.mkdirs(); //não existindo, cria o diretório
+			dir.mkdir(); //não existindo, cria o diretório
 		}
 
-		String caminhoAnexo = request.getServletContext().getRealPath("/images/");
+		String caminhoAnexo = "C:\\projetoFinal\\imagens\\";
 		String extensao = anexo.getOriginalFilename().substring(
 				anexo.getOriginalFilename().lastIndexOf("."),
 				anexo.getOriginalFilename().length());
 
 		String nomeArquivo = id + extensao;
-
-		String imgCodificada = codificador.encoder(nomeArquivo);
 
 		try {
 			FileOutputStream fileOut = new FileOutputStream(

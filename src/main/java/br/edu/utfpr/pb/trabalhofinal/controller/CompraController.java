@@ -65,7 +65,6 @@ public class CompraController extends CrudController<Compra, Integer> {
         return modelAndView;
     }
 
-    // arrumar
     @GetMapping("page")
     public ModelAndView list(@RequestParam("page") Optional<Integer> page, @RequestParam("size")Optional<Integer> size){
         int currentPage = page.orElse(1);
