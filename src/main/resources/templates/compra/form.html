@@ -48,13 +48,15 @@
                 <textarea id="descricao" name="descricao" class="form-control" cols="5" rows="5"> </textarea>
             </div>
 
-            <div class="row" style="text-align: right;">
+            <div class="form-group" style="text-align: center;">
+
                 <div class="col-xs-4">
-                    <a class="btn btn-info" data-toggle="modal" data-target="#modal-form-produto">
-                        <i class="fa fa-plus-add"></i> Adicionar Produto
+                    <a class="btn btn-primary" data-toggle="modal" data-target="#modal-form-produto">
+                        <i class="fa fa-plus"></i> Adicionar Produto
                     </a>
                 </div>
             </div>
+
             <div class="table-responsive" style="padding-top: 10px;padding-bottom: 27px;">
                 <table class="table table-hover" id="tableProdutos">
                     <thead>
@@ -69,9 +71,12 @@
                 </table>
             </div>
             <div class="form-group" style="text-align: center;">
-                <button class="btn  btn-primary" onclick="saveJsonCompra('/compra/json')" type="button">
-                    <i class="fa fa-save"></i>&nbsp; Finalizar Compra
-                </button>
+
+                <div class="col-xs-4">
+                    <a class="btn btn-primary" onclick="saveJsonCompra('/compra/json')">
+                        <i class="fa fa-plus"></i> Finalizar Compra
+                    </a>
+                </div>
             </div>
         </form>
     </div>
@@ -97,7 +102,7 @@
                                 <option value=""> (Selecione)</option>
                                 <option th:each="produto: ${produtos}"
                                         th:value="${produto.id}"
-                                        th:text="${produto.nome}"
+                                        th:text="${produto.nome} + ' - R$: ' + ${produto.valor}"
                                         th:valorProduto="${produto.valor}">
                                 </option>
                             </select>
@@ -110,12 +115,12 @@
 
                         <div class="form-group">
                             <label for="valor">Valor (R$)</label>
-                            <input type="number" class="form-control" id="valor" name="valor"/>
+                            <input type="number" class="form-control" id="valor" name="valor" readonly/>
                         </div>
 
                         <div class="form-group">
                             <label for="valorTotal">Valor Total (R$)</label>
-                            <input type="number" readonly class="form-control" id="valorTotal" name="valorTotal"/>
+                            <input type="number" class="form-control" id="valorTotal" name="valorTotal" readonly/>
                         </div>
                     </div>
                 </div> <!-- modal-body-->

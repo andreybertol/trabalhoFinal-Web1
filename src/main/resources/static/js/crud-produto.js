@@ -1,3 +1,7 @@
+// $(document).ready(function(){
+//     const
+// });
+
 function editProduto(url){
     $.get(url, function(entity, status){
         $('#id').val(entity.id);

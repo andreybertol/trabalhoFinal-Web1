@@ -34,130 +34,130 @@ import java.util.stream.IntStream;
 @RequestMapping("produto")
 public class ProdutoController extends CrudController<Produto, Integer> {
 
-	@Autowired
-	private ProdutoService produtoService;
-	@Autowired
-	private MarcaService marcaService;
-	@Autowired
-	private CategoriaService categoriaService;
+    @Autowired
+    private ProdutoService produtoService;
+    @Autowired
+    private MarcaService marcaService;
+    @Autowired
+    private CategoriaService categoriaService;
 
-	@Override
-	protected CrudService<Produto, Integer> getService() {
-		return produtoService;
-	}
+    @Override
+    protected CrudService<Produto, Integer> getService() {
+        return produtoService;
+    }
 
-	@Override
-	protected String getURL() {
-		return "produto";
-	}
+    @Override
+    protected String getURL() {
+        return "produto";
+    }
 
-	@Override
-	@GetMapping("new")
-	protected ModelAndView form(Produto produto) {
-		ModelAndView modelAndView = new ModelAndView(this.getURL() + "/form");
-		if (produto != null) {
-			modelAndView.addObject(produto);
-		} else {
-			modelAndView.addObject(new Produto());
-		}
-		return modelAndView;
-	}
+    @Override
+    @GetMapping("new")
+    protected ModelAndView form(Produto produto) {
+        ModelAndView modelAndView = new ModelAndView(this.getURL() + "/form");
+        if (produto != null) {
+            modelAndView.addObject(produto);
+        } else {
+            modelAndView.addObject(new Produto());
+        }
+        return modelAndView;
+    }
 
-	@Override
-	@GetMapping("{id}")
-	protected ModelAndView form(@PathVariable Integer id) {
-		ModelAndView modelAndView = new ModelAndView(this.getURL() + "/form");
+    @Override
+    @GetMapping("{id}")
+    protected ModelAndView form(@PathVariable Integer id) {
+        ModelAndView modelAndView = new ModelAndView(this.getURL() + "/form");
 
-		modelAndView.addObject(this.getService().findOne(id));
+        modelAndView.addObject(this.getService().findOne(id));
 
-		return modelAndView;
-	}
+        return modelAndView;
+    }
 
-	@PostMapping("ajax")
-	public ResponseEntity<?> save(@Valid Produto entity, BindingResult result) {
-		if (result.hasErrors()) {
-			return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
-		}
-		getService().save(entity);
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
+    @PostMapping("ajax")
+    public ResponseEntity<?> save(@Valid Produto entity, BindingResult result) {
+        if (result.hasErrors()) {
+            return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
+        getService().save(entity);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
-	@GetMapping("ajax/{id}")
-	@ResponseBody
-	public Produto edit(@PathVariable Integer id) {
-		return getService().findOne(id);
-	}
+    @GetMapping("ajax/{id}")
+    @ResponseBody
+    public Produto edit(@PathVariable Integer id) {
+        return getService().findOne(id);
+    }
 
-	@GetMapping("page")
-	public ModelAndView list(@RequestParam("page") Optional<Integer> page,
-							 @RequestParam("size") Optional<Integer> size) {
-		int currentPage = page.orElse(1);
-		int pageSize = size.orElse(5);
+    @GetMapping("page")
+    public ModelAndView list(@RequestParam("page") Optional<Integer> page,
+                             @RequestParam("size") Optional<Integer> size) {
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(5);
 
-		Page<Produto> list = this.getService().findAll(
-				PageRequest.of(currentPage - 1, pageSize));
+        Page<Produto> list = this.getService().findAll(
+                PageRequest.of(currentPage - 1, pageSize));
 
-		ModelAndView modelAndView = new ModelAndView(this.getURL() + "/list");
-		modelAndView.addObject("list", list);
+        ModelAndView modelAndView = new ModelAndView(this.getURL() + "/list");
+        modelAndView.addObject("list", list);
 
-		modelAndView.addObject("marcas", marcaService.findAll());
-		modelAndView.addObject("categorias", categoriaService.findAll());
+        modelAndView.addObject("marcas", marcaService.findAll());
+        modelAndView.addObject("categorias", categoriaService.findAll());
 
-		if (list.getTotalPages() > 0) {
-			List<Integer> pageNumbers = IntStream
-					.rangeClosed(1, list.getTotalPages())
-					.boxed().collect(Collectors.toList());
+        if (list.getTotalPages() > 0) {
+            List<Integer> pageNumbers = IntStream
+                    .rangeClosed(1, list.getTotalPages())
+                    .boxed().collect(Collectors.toList());
 
-			modelAndView.addObject("pageNumbers", pageNumbers);
-		}
-		return modelAndView;
-	}
+            modelAndView.addObject("pageNumbers", pageNumbers);
+        }
+        return modelAndView;
+    }
 
-	//método para salvar com upload de arquivos
-	@PostMapping("upload")
-	public ResponseEntity<?> save(@Valid Produto entity, BindingResult result,
-								  @RequestParam("anexo") MultipartFile anexo,
-								  @RequestParam("anexos") MultipartFile[] anexos,
-								  HttpServletRequest request) {
+    //método para salvar com upload de arquivos
+    @PostMapping("upload")
+    public ResponseEntity<?> save(@Valid Produto entity, BindingResult result,
+                                  @RequestParam("anexo") MultipartFile anexo,
+                                  @RequestParam("anexos") MultipartFile[] anexos,
+                                  HttpServletRequest request) {
 
-		if (result.hasErrors()) {
-			return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
-		}
-		getService().save(entity);
+        if (result.hasErrors()) {
+            return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
+        getService().save(entity);
 
-		if (anexo != null) {
-			saveFile(entity.getId(), anexo);
-		}
+        if (anexo != null) {
+            saveFile(entity.getId(), anexo);
+        }
 
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
-	private void saveFile(Integer id, MultipartFile anexo) {
-		File dir = new File("C:\\projetoFinal\\imagens\\");
-		if (!dir.exists()) { //verifica se o diretório de armazenamento existe
-			dir.mkdir(); //não existindo, cria o diretório
-		}
+    private void saveFile(Integer id, MultipartFile anexo) {
+        File dir = new File("C:\\projetoFinal\\imagens\\");
+        if (!dir.exists()) { //verifica se o diretório de armazenamento existe
+            dir.mkdir(); //não existindo, cria o diretório
+        }
 
-		String caminhoAnexo = "C:\\projetoFinal\\imagens\\";
-		String extensao = anexo.getOriginalFilename().substring(
-				anexo.getOriginalFilename().lastIndexOf("."),
-				anexo.getOriginalFilename().length());
+        String caminhoAnexo = "C:\\projetoFinal\\imagens\\";
+        String extensao = anexo.getOriginalFilename().substring(
+                anexo.getOriginalFilename().lastIndexOf("."),
+                anexo.getOriginalFilename().length());
 
-		String nomeArquivo = id + extensao;
+        String nomeArquivo = id + extensao;
 
-		try {
-			FileOutputStream fileOut = new FileOutputStream(
-					new File (caminhoAnexo + nomeArquivo));
+        try {
+            FileOutputStream fileOut = new FileOutputStream(
+                    new File(caminhoAnexo + nomeArquivo));
 
-			BufferedOutputStream stream = new BufferedOutputStream(fileOut);
+            BufferedOutputStream stream = new BufferedOutputStream(fileOut);
 
-			stream.write(anexo.getBytes());
-			stream.close();
+            stream.write(anexo.getBytes());
+            stream.close();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 

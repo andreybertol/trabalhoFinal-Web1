@@ -37,10 +37,12 @@ public class CompraController extends CrudController<Compra, Integer> {
     private UsuarioService usuarioService;
     @Autowired
     private FornecedorService fornecedorService;
+
     @Override
     protected CrudService<Compra, Integer> getService() {
         return compraService;
     }
+
     @Override
     protected String getURL() {
         return "compra";
@@ -66,11 +68,11 @@ public class CompraController extends CrudController<Compra, Integer> {
     }
 
     @GetMapping("page")
-    public ModelAndView list(@RequestParam("page") Optional<Integer> page, @RequestParam("size")Optional<Integer> size){
+    public ModelAndView list(@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(5);
 
-        Page<Compra> list = this.getService().findAll(PageRequest.of(currentPage -1, pageSize));
+        Page<Compra> list = this.getService().findAll(PageRequest.of(currentPage - 1, pageSize));
 
         ModelAndView modelAndView = new ModelAndView(this.getURL() + "/list");
         modelAndView.addObject("list", list);
@@ -79,7 +81,7 @@ public class CompraController extends CrudController<Compra, Integer> {
         modelAndView.addObject("fornecedores", fornecedorService.findAll());
         modelAndView.addObject("produtos", produtoService.findAll());
 
-        if(list.getTotalPages()>0){
+        if (list.getTotalPages() > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, list.getTotalPages()).boxed().collect(Collectors.toList());
             modelAndView.addObject("pageNumbers", pageNumbers);
         }
@@ -97,8 +99,8 @@ public class CompraController extends CrudController<Compra, Integer> {
     }
 
     @PostMapping("ajax")
-    public ResponseEntity<?> save(@Valid Compra entity, BindingResult result){
-        if ( result.hasErrors() ) {
+    public ResponseEntity<?> save(@Valid Compra entity, BindingResult result) {
+        if (result.hasErrors()) {
             return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
         getService().save(entity);
@@ -133,7 +135,7 @@ public class CompraController extends CrudController<Compra, Integer> {
             cp.setValor(valorTotal);
             cp.setCompra(entity);
 
-            valorTotal =+ cp.getValor();
+            valorTotal = +cp.getValor();
 
             compraProdutoService.save(cp);
         }
@@ -143,7 +145,7 @@ public class CompraController extends CrudController<Compra, Integer> {
         getService().save(entity);
 
         return new ResponseEntity<>(HttpStatus.OK);
-}
+    }
 }
 
 
