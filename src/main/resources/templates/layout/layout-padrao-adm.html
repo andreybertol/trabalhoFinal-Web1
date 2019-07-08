@@ -95,7 +95,7 @@
                             <a class="dropdown-item" href="#">Cadastro</a>
                         </div>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Comprar Produto</a>
+                            <a class="dropdown-item" href="/produto/page">Comprar Produto</a>
                         </div>
                     </div>
                 </li>
@@ -147,7 +147,7 @@
                 <button class="checkout">Checkout</button>
             </div>
 
-            <div sec:authorize="hasAuthority('ROLE_ADMIN')">Texto apenas para o admin</div>
+            <div sec:authorize="hasRole('ROLE_ADMIN')">Texto apenas para o admin</div>
 
             <a th:href="@{/logout}" class="btn btn-outline-danger"><i class="fa fa-sign-out-alt"></i> Sair</a>
         </div>

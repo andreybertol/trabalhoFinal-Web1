@@ -113,6 +113,32 @@ public class ProdutoController extends CrudController<Produto, Integer> {
         return modelAndView;
     }
 
+//    @GetMapping("comprar")
+//    public ModelAndView comprar(@RequestParam("page") Optional<Integer> page,
+//                                @PathVariable Integer id) {
+//        int currentPage = page.orElse(1);
+//
+//        ModelAndView modelAndView = new ModelAndView(this.getURL() + "/form");
+//        modelAndView.addObject(this.getService().findOne(id));
+//
+//        Page<Produto> comprar = this.getService().findOne(id);
+//
+//        ModelAndView modelAndView = new ModelAndView(this.getURL() + "/list");
+//        modelAndView.addObject("comprar", comprar);
+//
+//        modelAndView.addObject("marcas", marcaService.findAll());
+//        modelAndView.addObject("categorias", categoriaService.findAll());
+//
+//        if (list.getTotalPages() > 0) {
+//            List<Integer> pageNumbers = IntStream
+//                    .rangeClosed(1, list.getTotalPages())
+//                    .boxed().collect(Collectors.toList());
+//
+//            modelAndView.addObject("pageNumbers", pageNumbers);
+//        }
+//        return modelAndView;
+//    }
+
     //método para salvar com upload de arquivos
     @PostMapping("upload")
     public ResponseEntity<?> save(@Valid Produto entity, BindingResult result,

@@ -48,9 +48,8 @@
                            th:text="${marca.nome}">...</a></td>
 
                     <td style="width:200px" class="text-center">
-                        <a
-                                th:href="'javascript:edit(\'/marca/ajax/' + ${marca.id} + '\');'"
-                                class="btn btn-primary btn-xs"> <i class="fa fa-edit"></i>
+                        <a th:href="'javascript:edit(\'/marca/ajax/' + ${marca.id} + '\');'"
+                           class="btn btn-primary btn-xs"> <i class="fa fa-edit"></i>
                         </a> &nbsp;
                         <a th:href="'javascript:remove('+ ${marca.id} +',\'/marca\');'"
                            class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
