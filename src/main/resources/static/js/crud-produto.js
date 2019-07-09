@@ -1,7 +1,3 @@
-// $(document).ready(function(){
-//     const
-// });
-
 var produto =
     {
         "id": Number,
@@ -12,28 +8,6 @@ var produto =
         "categoria": {},
         "marca": {},
     };
-
-function comprarProduto(url) {
-    $.get(url, function (entity, status) {
-        produto.id = $('#id').val();
-        // produto.nome = entity.nome;
-        // produto.detalhes = entity.detalhes;
-        // produto.valor = entity.valor;
-        // produto.estoque = entity.estoque;
-        // produto.categoria = entity.categoria;
-        // produto.marca = entity.marca;
-
-        // $('#id').val(entity.id);
-        // $('#nome').val(entity.nome);
-        // $('#detalhes').val(entity.detalhes);
-        // $('#valor').val(entity.valor);
-        // $('#estoque').val(entity.estoque);
-        // $('#categoria').val(entity.categoria.id);
-        // $('#marca').val(entity.marca.id);
-    });
-
-    window.location = '/produto/comprar';
-}
 
 function editProduto(url) {
     $.get(url, function (entity, status) {

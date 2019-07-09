@@ -8,23 +8,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <title>bertol Sistemas</title>
+    <title>E-Bertol</title>
 
-    <link rel="shortcut icon" th:href="@{/images/favicon.ico}"
-          type="image/x-icon">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script type="text/javascript" th:src="@{/vendors/jquery/jquery.js}"></script>
+
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}"/>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
-          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/shards-ui@latest/dist/css/shards.min.css">
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+          crossorigin="anonymous">
+
     <link rel="stylesheet" th:href="@{/css/estilo.css}"/>
     <link rel="stylesheet" th:href="@{/vendors/sweetalert/sweetalert.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/bootstrap-datepicker/css/bootstrap-datepicker.min.css}"/>
+
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/css/uikit.min.css"/>
 </head>
 
 <body>
 <header>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="#">Cervejas</a>
+        <a class="navbar-brand" href="#">E-Bertol</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
                 aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -153,13 +160,70 @@
 <section class="ut-layout-content  js-content" layout:fragment="conteudo">
     As págias serão carregadas aqui...
 </section>
-<footer class="ut-layout-footer  js-content">
-    <div class="container-fluid">
-        <span class="ut-footer-disclaimer">&copy; 2019 UTFPR. Todos os direitos reservados.</span>
+
+<div class="footer">
+    <div class="contain">
+        <div class="col">
+            <h1>EMPRESA</h1>
+            <ul>
+                <li>Sobre</li>
+                <li>Missao</li>
+                <li>Serviços</li>
+                <li>Social</li>
+                <li>Conecte-se</li>
+            </ul>
+        </div>
+        <div class="col">
+            <h1>PRODUTOS</h1>
+            <ul>
+                <li>Sobre</li>
+                <li>Missao</li>
+                <li>Serviços</li>
+                <li>Marcas</li>
+                <li>Conecte-se</li>
+            </ul>
+        </div>
+        <div class="col">
+            <h1>Contas</h1>
+            <ul>
+                <li>Sobre</li>
+                <li>Missao</li>
+                <li>Serviços</li>
+                <li>Informações</li>
+                <li>Conecte-se</li>
+            </ul>
+        </div>
+        <div class="col">
+            <h1>Recursos</h1>
+            <ul>
+                <li>Webmail</li>
+                <li>Cupom</li>
+                <li>Mapa do Site</li>
+            </ul>
+        </div>
+        <div class="col">
+            <h1>Suporte</h1>
+            <ul>
+                <li>Entre em contato</li>
+                <li>Chamar um atendente</li>
+                <li>Abrir ticket</li>
+            </ul>
+        </div>
+        <div class="col social">
+            <h1>Social</h1>
+            <ul>
+                <li><img src="https://svgshare.com/i/5fq.svg" width="32" style="width: 32px;"></li>
+                <li><img src="https://svgshare.com/i/5f_.svg" width="32" style="width: 32px;"></li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
     </div>
-</footer>
+</div>
+
 <script type="text/javascript" th:src="@{/js/crud.js}"></script>
 <script type="text/javascript" th:src="@{/vendors/jquery/jquery.js}"></script>
 <script type="text/javascript" th:src="@{/vendors/sweetalert/sweetalert-dev.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit-icons.min.js"></script>
 </body>
 </html>

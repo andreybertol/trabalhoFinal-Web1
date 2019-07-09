@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <title>bertol Sistemas</title>
+    <title>E-Bertol</title>
 
     <script type="text/javascript" th:src="@{/vendors/jquery/jquery.js}"></script>
 
@@ -31,7 +31,7 @@
 <body>
 <header>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="#">Cervejas</a>
+        <a class="navbar-brand" href="#">E-Bertol</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
                 aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -129,28 +129,9 @@
                 <!--                </li>-->
             </ul>
 
-            <div id="modalCart" class="modal modal-cart-close">
-
-                <h1 id="carrinhoHeader">Carrinho</h1>
-                <div id="itensCarrinho"></div>
-                <div id="cep">
-                    <input placeholder="CEP" class="numero-cep" type="number">
-                    <button id="okCep">OK</button>
-                </div>
-                <div id="totalCarrinho">
-                    <div>
-                        <strong>Total: </strong>
-                        <strong id="totalizador" class="valor-total"></strong>
-                    </div>
-                    <div>
-                        <strong>Frete:</strong>
-                        <strong id="frete" style="color: blue">R$ 20</strong>
-                    </div>
-                </div>
-                <button class="checkout">Checkout</button>
-            </div>
-
-            <div id="nomeUsuario" sec:authorize="hasRole('ROLE_ADMIN')">Texto apenas para o admin</div>
+            <li class="nav-item">
+                <a data-toggle="modal" data-target="#modalCart" id="abreCarrinho" class="fa fa-shopping-cart" title="Abrir Carrinho"></a>
+            </li>
 
             <a th:href="@{/logout}" class="btn btn-outline-danger"><i class="fa fa-sign-out-alt"></i> Sair</a>
         </div>
@@ -158,7 +139,7 @@
 </header>
 
 <section class="ut-layout-content" layout:fragment="conteudo">
-    As págias serão carregadas aqui...
+    As páginas serão carregadas aqui...
 </section>
 
 <!-- FOOTER START -->
@@ -232,6 +213,7 @@
     });
 </script>
 <script type="text/javascript" th:src="@{/js/crud.js}"></script>
+<script type="text/javascript" th:src="@{/js/crud-vendas.js}"></script>
 <!-- UIkit JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit-icons.min.js"></script>

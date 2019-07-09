@@ -58,12 +58,18 @@
                     <td><a th:text="${produto.categoria.nome}">...</a></td>
 
                     <td style="width:200px" class="text-center">
-                        <a th:href="'javascript:comprarProduto(\'/produto/comprar/' + ${produto.id} + '\');,'"
-                           class="btn btn-primary btn-xs"> <i class="fa fa-eye"></i>
-                        </a> &nbsp;
+<!--                        <a th:href="'javascript:produtoDetalhe(\'/produto/detalhe/' + ${produto.id} + '\');'"-->
+<!--                            class="btn btn-primary btn-xs"> <i class="fa fa-eye"></i>-->
+<!--                        </a> &nbsp;-->
+
+                        <a th:href="@{/produto/detalhe/{id}(id=${produto.id})}" class="btn btn-primary btn-xs">
+                            <i class="fa fa-eye"></i>
+                        </a>
+
                         <a th:href="'javascript:editProduto(\'/produto/ajax/' + ${produto.id} + '\');'"
                            class="btn btn-primary btn-xs"> <i class="fa fa-edit"></i>
                         </a> &nbsp;
+
                         <a th:href="'javascript:remove('+ ${produto.id} +',\'/produto\');'"
                            class="btn btn-danger btn-xs"><i class="fa fa-trash"></i>
                         </a>

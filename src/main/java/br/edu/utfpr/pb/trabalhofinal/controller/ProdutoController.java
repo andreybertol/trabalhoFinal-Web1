@@ -1,6 +1,5 @@
 package br.edu.utfpr.pb.trabalhofinal.controller;
 
-import br.edu.utfpr.pb.trabalhofinal.base64Imagem.Base64Imagem;
 import br.edu.utfpr.pb.trabalhofinal.model.Produto;
 import br.edu.utfpr.pb.trabalhofinal.service.CategoriaService;
 import br.edu.utfpr.pb.trabalhofinal.service.CrudService;
@@ -12,13 +11,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.io.FileInputStream;
-import java.util.Base64;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -66,7 +63,12 @@ public class ProdutoController extends CrudController<Produto, Integer> {
     @Override
     @GetMapping("{id}")
     protected ModelAndView form(@PathVariable Integer id) {
-        ModelAndView modelAndView = new ModelAndView(this.getURL() + "/form");
+        return null;
+    }
+
+    @GetMapping("detalhe/{id}")
+    protected ModelAndView detalhe(@PathVariable Integer id) {
+        ModelAndView modelAndView = new ModelAndView(this.getURL() + "/detalhe");
 
         modelAndView.addObject(this.getService().findOne(id));
 

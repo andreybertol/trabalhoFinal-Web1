@@ -1,4 +1,7 @@
 function editFornecedor(url){
+
+    // url = \'/fornecedor/ajax/' + ${fornecedor.id} + '\'
+
     $.get(url, function(entity, status){
         $('#id').val(entity.id);
         $('#nome').val(entity.nome);
