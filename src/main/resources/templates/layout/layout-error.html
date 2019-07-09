@@ -1,110 +1,165 @@
 <!DOCTYPE html>
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-<meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>bertol Sistemas</title>
+    <title>bertol Sistemas</title>
 
-<link rel="shortcut icon" th:href="@{/images/favicon.ico}"
-	type="image/x-icon">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-<link rel="stylesheet" href="https://unpkg.com/shards-ui@latest/dist/css/shards.min.css">
-<link rel="stylesheet" th:href="@{/css/estilo.css}" />
-<link rel="stylesheet" th:href="@{/vendors/sweetalert/sweetalert.css}" />
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}"
+          type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/shards-ui@latest/dist/css/shards.min.css">
+    <link rel="stylesheet" th:href="@{/css/estilo.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/sweetalert/sweetalert.css}"/>
 </head>
 
 <body>
-	<header>
-		<!-- Fixed navbar -->
-		<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-			<a class="navbar-brand" href="#">bertol Sistemas</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-					aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">Cervejas</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+                aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item"
-						th:classappend="${#httpServletRequest.getRequestURI().startsWith('/home') ? 'active':''}">
-						<a class="nav-link" th:href="@{/home}">
-							<i class="fa fa-home"></i>
-							Principal
-						</a>
-					</li>
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
 
-					<li class="nav-item"
-						th:classappend="${#httpServletRequest.getRequestURI().startsWith('/usuario') ? 'active':''}">
-						<a class="nav-link" th:href="@{/usuario/page}">
-							<i class="fa fa-user"></i>
-							Usuários
-						</a>
-					</li>
+                <li class="nav-item"
+                    th:classappend="${#httpServletRequest.getRequestURI().startsWith('/home') ? 'active':''}">
+                    <a class="nav-link" th:href="@{/home}"><i class="fa fa-home"></i>Principal</a>
+                </li>
 
-					<li class="nav-item"
-						th:classappend="${#httpServletRequest.getRequestURI().startsWith('/marca') ? 'active':''}">
-						<a class="nav-link" th:href="@{/marca/page}">
-							<i class="fa fa-copyright"></i>
-							Marcas
-						</a>
-					</li>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="cadastros"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Cadastros
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" th:href="@{/usuario/page}">
+                                Usuários
+                            </a>
+                            <a class="dropdown-item" th:href="@{/produto/page}">
+                                Produtos
+                            </a>
+                            <a class="dropdown-item" th:href="@{/marca/page}">
+                                Marcas
+                            </a>
+                            <a class="dropdown-item" th:href="@{/categoria/page}">
+                                Categorias
+                            </a>
+                            <a class="dropdown-item" th:href="@{/fornecedor/page}">
+                                Fornecedores
+                            </a>
+                            <a class="dropdown-item" th:href="@{/compra/page}">
+                                Compras
+                            </a>
+                        </div>
+                    </div>
+                </li>
 
-					<li class="nav-item"
-						th:classappend="${#httpServletRequest.getRequestURI().startsWith('/categoria') ? 'active':''}">
-						<a class="nav-link" th:href="@{/categoria/page}">
-							<i class="fa fa-laptop-code"></i>
-							Categorias
-						</a>
-					</li>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="historico"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Histórico
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Pedidos Realizados</a>
+                            <a class="dropdown-item" href="#">Produtos Vendidos</a>
+                        </div>
+                    </div>
+                </li>
 
-					<li class="nav-item"
-						th:classappend="${#httpServletRequest.getRequestURI().startsWith('/fornecedor') ? 'active':''}">
-						<a class="nav-link" th:href="@{/fornecedor/page}">
-							<i class="fa fa-truck"></i>
-							Fornecedor
-						</a>
-					</li>
 
-					<li class="nav-item"
-						th:classappend="${#httpServletRequest.getRequestURI().startsWith('/produto') ? 'active':''}">
-						<a class="nav-link" th:href="@{/produto/page}">
-							<i class="fa fa-beer"></i>
-							Produto
-						</a>
-					</li>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="cliente"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Cliente
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Cadastro</a>
+                        </div>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/produto/page">Comprar Produto</a>
+                        </div>
+                    </div>
+                </li>
 
-					<li class="nav-item"
-						th:classappend="${#httpServletRequest.getRequestURI().startsWith('/compra') ? 'active':''}">
-						<a class="nav-link" th:href="@{/compra/page}">
-							<i class="fa fa-hryvnia"></i>
-							Comprar
-						</a>
-					</li>
-				</ul>
-				<form class="form-inline my-2 my-lg-0">
-					<input class="form-control mr-sm-2" type="text" placeholder="Pesquisar" aria-label="Search">
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
-				</form>
-			</div>
-		</nav>
-	</header>
+                <!--                <li class="nav-item"-->
+                <!--                    th:classappend="${#httpServletRequest.getRequestURI().startsWith('/marca') ? 'active':''}">-->
+                <!--                    <a class="nav-link" th:href="@{/marca/page}"><i class="fa fa-copyright"></i>Marcas</a>-->
+                <!--                </li>-->
+                <!--                <li class="nav-item"-->
+                <!--                    th:classappend="${#httpServletRequest.getRequestURI().startsWith('/categoria') ? 'active':''}">-->
+                <!--                    <a class="nav-link" th:href="@{/categoria/page}"><i class="fa fa-laptop-code"></i>Categorias</a>-->
+                <!--                </li>-->
+                <!--                <li class="nav-item"-->
+                <!--                    th:classappend="${#httpServletRequest.getRequestURI().startsWith('/fornecedor') ? 'active':''}">-->
+                <!--                    <a class="nav-link" th:href="@{/fornecedor/page}"> <i class="fa fa-truck"></i>Fornecedor</a>-->
+                <!--                </li>-->
+                <!--                <li class="nav-item"-->
+                <!--                    th:classappend="${#httpServletRequest.getRequestURI().startsWith('/produto') ? 'active':''}">-->
+                <!--                    <a class="nav-link" th:href="@{/produto/page}"><i class="fa fa-beer"></i>Produto</a>-->
+                <!--                </li>-->
+                <!--                <li class="nav-item"-->
+                <!--                    th:classappend="${#httpServletRequest.getRequestURI().startsWith('/compra') ? 'active':''}">-->
+                <!--                    <a class="nav-link" th:href="@{/compra/new}"><i class="fa fa-hryvnia"></i>Comprar</a>-->
+                <!--                </li>-->
+                <!--                <li class="nav-item"-->
+                <!--                    th:classappend="${#httpServletRequest.getRequestURI().startsWith('/usuario') ? 'active':''}">-->
+                <!--                    <a class="nav-link" th:href="@{/usuario/page}"><i class="fa fa-user"></i>Usuários</a>-->
+                <!--                </li>-->
+            </ul>
 
-	<section class="ut-layout-content  js-content" layout:fragment="conteudo">
-		As págias serão carregadas aqui...
-	</section>
-	<footer class="ut-layout-footer  js-content">
-		<div class="container-fluid">
-			<span class="ut-footer-disclaimer">&copy; 2019 UTFPR. Todos os direitos reservados.</span>
-		</div>
-	</footer>
-	<script type="text/javascript" th:src="@{/js/crud.js}"></script>
-	<script type="text/javascript" th:src="@{/vendors/jquery/jquery.js}"></script>
-	<script type="text/javascript" th:src="@{/vendors/sweetalert/sweetalert-dev.js}"></script>
+            <div id="modalCart" class="modal modal-cart-close">
+
+                <h1 id="carrinhoHeader">Carrinho</h1>
+                <div id="itensCarrinho"></div>
+                <div id="cep">
+                    <input placeholder="CEP" class="numero-cep" type="number">
+                    <button id="okCep">OK</button>
+                </div>
+                <div id="totalCarrinho">
+                    <div>
+                        <strong>Total: </strong>
+                        <strong id="totalizador" class="valor-total"></strong>
+                    </div>
+                    <div>
+                        <strong>Frete:</strong>
+                        <strong id="frete" style="color: blue">R$ 20</strong>
+                    </div>
+                </div>
+                <button class="checkout">Checkout</button>
+            </div>
+
+            <div id="nomeUsuario" sec:authorize="hasRole('ROLE_ADMIN')">Texto apenas para o admin</div>
+
+            <a th:href="@{/logout}" class="btn btn-outline-danger"><i class="fa fa-sign-out-alt"></i> Sair</a>
+        </div>
+    </nav>
+</header>
+
+<section class="ut-layout-content  js-content" layout:fragment="conteudo">
+    As págias serão carregadas aqui...
+</section>
+<footer class="ut-layout-footer  js-content">
+    <div class="container-fluid">
+        <span class="ut-footer-disclaimer">&copy; 2019 UTFPR. Todos os direitos reservados.</span>
+    </div>
+</footer>
+<script type="text/javascript" th:src="@{/js/crud.js}"></script>
+<script type="text/javascript" th:src="@{/vendors/jquery/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/vendors/sweetalert/sweetalert-dev.js}"></script>
 </body>
 </html>

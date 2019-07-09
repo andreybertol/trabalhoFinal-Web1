@@ -52,6 +52,9 @@
                             Cadastros
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" th:href="@{/usuario/page}">
+                                Usuários
+                            </a>
                             <a class="dropdown-item" th:href="@{/produto/page}">
                                 Produtos
                             </a>
@@ -147,7 +150,7 @@
                 <button class="checkout">Checkout</button>
             </div>
 
-            <div sec:authorize="hasRole('ROLE_ADMIN')">Texto apenas para o admin</div>
+            <div id="nomeUsuario" sec:authorize="hasRole('ROLE_ADMIN')">Texto apenas para o admin</div>
 
             <a th:href="@{/logout}" class="btn btn-outline-danger"><i class="fa fa-sign-out-alt"></i> Sair</a>
         </div>

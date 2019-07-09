@@ -18,5 +18,13 @@ function editUsuario(url){
             $('#chk_'+entity.permissoes[i].id).prop('checked', true);
         })
     });
+
+    // localStorage.setItem.usuarioID(entity.id);
+    // localStorage.setItem.usuarioNome(entity.nome);
+    //
+    // function setarNomeUsuario(){
+    //     $('#nomeUsuario').innerHTML = localStorage.usuarioNome;
+    // };
+
     $('#modal-form').modal();
 }

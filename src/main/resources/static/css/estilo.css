@@ -1,3 +1,11 @@
+.nav-item{
+  padding-right: 15px;
+}
+
+.btn-primary{
+  color: #000000 !important;
+}
+
 .ut-layout-page {
   position: relative;
   overflow-x: hidden;
