@@ -19,12 +19,5 @@ function editUsuario(url){
         })
     });
 
-    // localStorage.setItem.usuarioID(entity.id);
-    // localStorage.setItem.usuarioNome(entity.nome);
-    //
-    // function setarNomeUsuario(){
-    //     $('#nomeUsuario').innerHTML = localStorage.usuarioNome;
-    // };
-
     $('#modal-form').modal();
 }

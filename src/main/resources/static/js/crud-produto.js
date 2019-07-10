@@ -34,8 +34,15 @@ function saveUpload(urlDestino) {
         contentType: false,
         processData: false,
         success: function () {
-            swal('Salvo!', 'Registro salvo com sucesso!', 'success');
-            window.location = urlDestino;
+            swal({
+                    title: 'Salvo!',
+                    text: 'Registro salvo com sucesso!',
+                    type: 'success',
+                    showConfirmButton: false
+                },
+                setTimeout(function() {
+                    window.location = urlDestino;
+                }, 1000));
         },
         error: function () {
             swal('Errou!', 'Falha ao salvar o registro!', 'error');

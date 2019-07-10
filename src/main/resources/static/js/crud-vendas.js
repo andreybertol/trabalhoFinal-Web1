@@ -34,8 +34,15 @@ function saveJsonVenda(urlDestino) {
         contentType: 'application/json',
         data    : JSON.stringify(venda),
         success: function () {
-            swal('Salvo!', 'Registro salvo com sucesso!', 'success');
-            window.location = '/venda/page';
+            swal({
+                    title: 'Salvo!',
+                    text: 'Registro salvo com sucesso!',
+                    type: 'success',
+                    showConfirmButton: false
+                },
+                setTimeout(function() {
+                    window.location = "/venda/page";
+                }, 1000));
         },
         error: function () {
             swal('Erro!', 'Falha ao salvar registro!', 'error');
