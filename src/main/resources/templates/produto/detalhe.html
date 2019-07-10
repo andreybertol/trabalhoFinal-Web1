@@ -17,9 +17,10 @@
 <!--                <img src='C:\projetoFinal\imagens\' + th:object="${produto.id}" + '.png' alt="">-->
             </div>
 
-
             <!-- Right Column -->
             <div class="right-column">
+
+                <input hidden id="produtoID" th:value="${produto.id}"></input>
 
                 <!-- Product Description -->
                 <div class="product-description">
@@ -36,16 +37,18 @@
                         <span>Selecione a quantidade: </span>
 
                         <div class="cable-choose">
-                            <input th:type="number">
+                            <input id="quantidade" th:type="number">
                         </div>
                     </div>
                 </div>
 
                 <!-- Product Pricing -->
                 <div class="product-price">
-                    <td>R$: <span th:text="${produto.valor}"></span></td>
+                    <input hidden id="valorProduto" th:value="${produto.valor}">
+
+                    <td>R$: <span id="valor" th:text="${produto.valor}" th:value="${produto.valor}"></span></td>
 <!--                    <span th:inline="text">R$: [[${#numbers.formatDecimal(10.0, 0, 'COMMA', 2, 'POINT')}]]</span>-->
-                    <a href="#" class="cart-btn">Adicionar ao carrinho</a>
+                    <a href="#" id="btnInserir" class="cart-btn">Adicionar ao carrinho</a>
                 </div>
             </div>
         </main>
