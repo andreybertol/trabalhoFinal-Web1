@@ -3,6 +3,8 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout-padrao-adm}">
+
+      <link rel="stylesheet" th:href="@{/css/estilo.css}"/>
 <head>
 <body>
 <section layout:fragment="conteudo">
@@ -11,10 +13,8 @@
         <main class="container">
             <!-- Left Column / Headphones Image -->
             <div class="left-column">
-                <img data-image="black" src="images/black.png" alt="">
-                <img data-image="blue" src="images/blue.png" alt="">
-                <img data-image="red" class="active" src="images/red.png" alt="">
-                <h6 id="nomeProduto"></h6>
+                <img src="../../images/logo.png">
+<!--                <img src='C:\projetoFinal\imagens\' + th:object="${produto.id}" + '.png' alt="">-->
             </div>
 
 
@@ -23,11 +23,9 @@
 
                 <!-- Product Description -->
                 <div class="product-description">
-                    <span>Headphones</span>
-                    <h1>Beats EP</h1>
-                    <p>The preferred choice of a vast range of acclaimed DJs. Punchy, bass-focused sound and high
-                        isolation.
-                        Sturdy headband and on-ear cushions suitable for live performance</p>
+                    <span th:text="${produto.nome}"></span>
+                    <h1 th:text="${produto.nome}"></h1>
+                    <p th:text="${produto.detalhes}"></p>
                 </div>
 
                 <!-- Product Configuration -->
@@ -35,22 +33,21 @@
 
                     <!-- Cable Configuration -->
                     <div class="cable-config">
-                        <span>Cable configuration</span>
+                        <span>Selecione a quantidade: </span>
 
                         <div class="cable-choose">
                             <button>Straight</button>
                             <button>Coiled</button>
                             <button>Long-coiled</button>
                         </div>
-
-                        <a href="#">How to configurate your headphones</a>
                     </div>
                 </div>
 
                 <!-- Product Pricing -->
                 <div class="product-price">
-                    <span>148$</span>
-                    <a href="#" class="cart-btn">Add to cart</a>
+                    <td>R$: <span th:text="${produto.valor}"></span></td>
+<!--                    <span th:inline="text">R$: [[${#numbers.formatDecimal(10.0, 0, 'COMMA', 2, 'POINT')}]]</span>-->
+                    <a href="#" class="cart-btn">Adicionar ao carrinho</a>
                 </div>
             </div>
         </main>
