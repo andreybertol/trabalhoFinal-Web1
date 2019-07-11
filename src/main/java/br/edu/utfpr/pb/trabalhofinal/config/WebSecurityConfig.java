@@ -25,20 +25,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable()
 			
 			.exceptionHandling().accessDeniedPage("/403")
-			.and().formLogin().loginPage("/login")
+			.and().formLogin().loginPage("/home")
 			.defaultSuccessUrl("/")
 			.failureUrl("/login?error=bad_credentials").permitAll()
 			.and().logout()
-			.logoutSuccessUrl("/login")
+			.logoutSuccessUrl("/home")
 			.and().authorizeRequests()
 				.antMatchers("/usuario/**").hasAnyRole("ADMIN")
-				.antMatchers("/produto/**").hasAnyRole("USER", "ADMIN")
-				.antMatchers("/fornecedor/**").hasAnyRole("USER", "ADMIN")
-				.antMatchers("/categoria/**").hasAnyRole("USER", "ADMIN")
-				.antMatchers("/marca/**").permitAll()
+				.antMatchers("/produto/**").permitAll()
+				.antMatchers("/fornecedor/**").hasAnyRole("ADMIN")
+				.antMatchers("/categoria/**").hasAnyRole("ADMIN")
+				.antMatchers("/marca/**").hasAnyRole("ADMIN")
 				.antMatchers("/compra/**").hasAnyRole("ADMIN")
-				//.antMatchers("/**").permitAll(); /*apenas para teste - REMOVER*/
-				.antMatchers("/**").authenticated();
+				.antMatchers("/**").permitAll();
 	}
 
 	@Override

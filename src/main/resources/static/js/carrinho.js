@@ -2,6 +2,19 @@
 //     window.location = "/checkout"
 // });
 
+// mostra ou esconde botão do carrinho se houver ou não item
+$('#btnInserir').on('click', function (e) {
+    var qtd = Number($('#quantidade').val());
+
+    if (qtd != 0) {
+        if (e.style.display == 'block') {
+            e.style.display = 'none';
+        } else {
+            e.style.display = 'block';
+        }
+    }
+});
+
 $('#btnLimpar').on('click', function (e) {
     swal({
             title: "Atenção!",

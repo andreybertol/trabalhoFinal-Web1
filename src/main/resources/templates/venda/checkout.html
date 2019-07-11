@@ -58,21 +58,20 @@
                 </tbody>
             </table>
 
-            <nav aria-label="Page navigation example">
-                <ul class="pagination" th:if="${list.totalPages > 0}">
-                    <li class="page-item"
-                        th:classappend="${pageNumber==list.number + 1} ? active"
-                        th:each="pageNumber : ${pageNumbers}">
-                        <a class="page-link"
-                           th:href="@{/produto/page(size=${list.size}, page=${pageNumber})}"
-                           th:text  ="${pageNumber}"></a>
-                    </li>
-                </ul>
-            </nav>
+            <!--            <nav aria-label="Page navigation example">-->
+            <!--                <ul class="pagination" th:if="${list.totalPages > 0}">-->
+            <!--                    <li class="page-item"-->
+            <!--                        th:classappend="${pageNumber==list.number + 1} ? active"-->
+            <!--                        th:each="pageNumber : ${pageNumbers}">-->
+            <!--                        <a class="page-link"-->
+            <!--                           th:href="@{/produto/page(size=${list.size}, page=${pageNumber})}"-->
+            <!--                           th:text  ="${pageNumber}"></a>-->
+            <!--                    </li>-->
+            <!--                </ul>-->
+            <!--            </nav>-->
         </div>
     </div>
-
-    <script type="text/javascript" th:src="@{/js/crud-vendas.js}"></script>
 </section>
+<script type="text/javascript" th:src="@{/js/crud-vendas.js}"></script>
 </body>
 </html>
