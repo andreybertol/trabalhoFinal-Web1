@@ -122,8 +122,6 @@ public class ProdutoController extends CrudController<Produto, Integer> {
         ModelAndView modelAndView = new ModelAndView(this.getURL() + "/form");
         modelAndView.addObject(this.getService().findOne(id));
 
-//        Page<Produto> comprar = this.getService().findOne(id);
-
         modelAndView.addObject("produto", produtoService.findOne(id));
 
         return modelAndView;

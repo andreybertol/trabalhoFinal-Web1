@@ -105,9 +105,14 @@
                 </li>
             </ul>
 
-            <li class="nav-item">
-                <a data-toggle="modal" data-target="#modalCart" id="abreCarrinho" class="fa fa-shopping-cart" title="Abrir Carrinho"></a>
-            </li>
+            <div class="nav-item" id="msgLogin">
+                <p id="p1" sec:authorize="hasRole('ROLE_VISITANATE')">Você não está logado</p>
+                <p id="p2" sec:authorize="hasRole('ROLE_ADMIN')">Seja bem vindo, admin</p>
+                <p id="p3" sec:authorize="hasRole('ROLE_CLIENTE')">Seja bem vindo, cliente</p>
+            </div>
+
+            <a th:href="@{/venda/checkout/}" id="btnCarrinho" class="fa fa-shopping-cart fa-2x"
+               title="Abrir Carrinho"></a>
 
             <a th:href="@{/logout}" class="btn btn-outline-danger"><i class="fa fa-sign-out-alt"></i> Sair</a>
         </div>
@@ -189,7 +194,7 @@
     });
 </script>
 <script type="text/javascript" th:src="@{/js/crud.js}"></script>
-<script type="text/javascript" th:src="@{/js/crud-vendas.js}"></script>
+<script type="text/javascript" th:src="@{/js/carrinho.js}"></script>
 <!-- UIkit JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit-icons.min.js"></script>

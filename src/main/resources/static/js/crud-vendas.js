@@ -5,22 +5,9 @@ var venda = {
     "vendaProdutos": new Array
 };
 
-$(document).ready(function () {
-    $('#nomeProduto').val(localStorage.getItem("nome"));
+$(document).ready(function(){
+    swal('teste', 'abriu saporra', 'success');
 });
-
-
-function produtoDetalhe(url) {
-
-    $.get(url, function (entity, status) {
-        localStorage.id = entity.id;
-        localStorage.nome = entity.nome;
-        localStorage.detalhes = entity.detalhes;
-        localStorage.categoria = entity.categoria;
-        localStorage.marca = entity.marca;
-    });
-    window.location = '/produto/detalhe';
-}
 
 function saveJsonVenda(urlDestino) {
     venda.fornecedor.id = $('#fornecedor option:selected').val();
@@ -49,48 +36,6 @@ function saveJsonVenda(urlDestino) {
         }
     });// Fim ajax
 }
-
-$('#btnLimpar').on('click', function (e) {
-    venda.vendaProdutos.length = 0;
-    venda = [];
-});
-
-$('#btnInserir').on('click', function (e) {
-        if (Number($('#quantidade').val() > 0)) {
-
-            produtosCarrinho = {};
-
-            var produto = Number($("#produtoID").val());
-            var quantidade = Number($("#quantidade").val());
-            var totalValor = $("#valorProduto").val();
-            produtosCarrinho.produto = produto;
-            produtosCarrinho.quantidade = quantidade;
-            produtosCarrinho.totalValor = totalValor;
-
-            venda.vendaProdutos.push(produtosCarrinho);
-
-            swal({
-                    title: 'Salvo!',
-                    text: 'Produto adicionado!',
-                    type: 'success',
-                    showConfirmButton: false
-                },
-                setTimeout(function () {
-                    window.location = "/produto/page";
-                }, 1500));
-
-        } else {
-            swal('Erro!', 'Informe a quantidade!', 'warning');
-        }
-    }
-);
-
-$('#quantidade').on('input', function (e) {
-    // impedir informar quantidade negativa
-    if (Number($('#quantidade').val() <= 0)) {
-        $('#quantidade').val(0);
-    }
-});
 
 function formatDate(inputFormat) {
     function pad(s) {

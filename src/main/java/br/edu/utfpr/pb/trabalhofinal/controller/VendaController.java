@@ -45,41 +45,10 @@ public class VendaController extends CrudController<Venda, Integer> {
         return "venda";
     }
 
-    @Override
-    @GetMapping("new")
-    protected ModelAndView form(Venda venda) {
-        ModelAndView modelAndView = new ModelAndView(this.getURL() + "/form");
+    @GetMapping("checkout")
+    protected ModelAndView checkout() {
+        ModelAndView modelAndView = new ModelAndView(this.getURL() + "/checkout");
 
-        modelAndView.addObject("usuarios", usuarioService.findAll());
-        modelAndView.addObject("produtos", produtoService.findAll());
-
-        if (venda != null) {
-
-            modelAndView.addObject(venda);
-
-        } else {
-            modelAndView.addObject(new Venda());
-        }
-        return modelAndView;
-    }
-
-    @GetMapping("page")
-    public ModelAndView list(@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(5);
-
-        Page<Venda> list = this.getService().findAll(PageRequest.of(currentPage - 1, pageSize));
-
-        ModelAndView modelAndView = new ModelAndView(this.getURL() + "/list");
-        modelAndView.addObject("list", list);
-
-        modelAndView.addObject("usuarios", usuarioService.findAll());
-        modelAndView.addObject("produtos", produtoService.findAll());
-
-        if (list.getTotalPages() > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, list.getTotalPages()).boxed().collect(Collectors.toList());
-            modelAndView.addObject("pageNumbers", pageNumbers);
-        }
         return modelAndView;
     }
 
@@ -139,6 +108,11 @@ public class VendaController extends CrudController<Venda, Integer> {
         getService().save(entity);
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Override
+    protected ModelAndView form(Venda entity) {
+        return null;
     }
 }
 
