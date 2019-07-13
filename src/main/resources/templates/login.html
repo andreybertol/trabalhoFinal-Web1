@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout-padrao-adm}">
 <head>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <title>bertol Sistemas</title>
+    <title>E-Bertol</title>
 
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -19,42 +21,54 @@
     <link rel="stylesheet"
           href="https://unpkg.com/shards-ui@latest/dist/css/shards.min.css">
 
-    <link rel="stylesheet" th:href="@{/css/login.css}"/>
-    <link rel="shortcut icon" th:href="@{/images/favicon.ico}"
-          type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/vendors/sweetalert/sweetalert.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/bootstrap-datepicker/css/bootstrap-datepicker.min.css}"/>
 
+<!--    <link rel="stylesheet" th:href="@{/css/login.css}"/>-->
+    <link rel="stylesheet" th:href="@{/css/login.css}"/>
+
+    <!--     UIkit CSS-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/css/uikit.min.css"/>
 </head>
 
 <body>
-<div class="wrapper fadeInDown">
-    <div id="formContent">
-        <!-- Tabs Titles -->
+<section layout:fragment="conteudo">
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <!-- Tabs Titles -->
 
-        <!-- Icon -->
-        <div class="fadeIn first">
-            <h3>Bertol Sistemas</h3>
-        </div>
-
-        <!-- Login Form -->
-        <form th:action="@{/login}" method="POST">
-            <input type="text" id="username" class="fadeIn second" name="username" placeholder="usuário">
-
-            <input type="password" id="password" class="fadeIn third" name="password" placeholder="senha">
-
-            <input type="submit" class="fadeIn fourth" value="Entrar">
-            <div class="alert alert-danger" th:if="${#bools.isTrue(param.error)}">
-                O usuário e/ou senha inválido(s)!
+            <!-- Icon -->
+            <div class="fadeIn first">
+                <h3>Bertol Sistemas</h3>
             </div>
-        </form>
 
-        <div id="formFooter">
-            <a class="underlineHover" href="#">Ainda não fez seu cadastro?</a>
+            <!-- Login Form -->
+            <form th:action="@{/login}" method="POST">
+                <input type="text" id="username" class="fadeIn second" name="username" placeholder="usuário">
+
+                <input type="password" id="password" class="fadeIn third" name="password" placeholder="senha">
+
+                <input id="botoesLogin" type="submit" class="fadeIn fourth" value="Entrar">
+                <div class="alert alert-danger" th:if="${#bools.isTrue(param.error)}">
+                    O usuário e/ou senha inválido(s)!
+                </div>
+            </form>
+
+            <div id="formFooter">
+                <a th:href="@{/cliente/cadastro}" class="underlineHover" href="#">Ainda não fez seu cadastro?</a>
+            </div>
+
         </div>
-
     </div>
-</div>
 
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script type="text/javascript" th:src="@{/js/crud.js}"></script>
+    <script type="text/javascript" th:src="@{/js/carrinho.js}"></script>
+    <!-- UIkit JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit-icons.min.js"></script>
+</section>
 </body>
 </html>

@@ -5,9 +5,20 @@ var venda = {
     "vendaProdutos": new Array
 };
 
-$(document).ready(function(){
-    swal('teste', 'abriu saporra', 'success');
-});
+window.onload = function() {
+
+    var carrinho = JSON.parse(localStorage.getItem("produtosCarrinho"));
+
+    for (i = 0; i <= carrinho.length; i++) {
+        var rowData = carrinho[i];
+        var rowStr = "<tr>"
+            + "<td>" + rowData.produto + "</td>"
+            + "<td>" + rowData.quantidade + "</td>"
+            + "<td>" + rowData.totalValor + "</td>"
+            + "</tr>"
+        $("#tabela-produtos tbody").append(rowStr);
+    }
+};
 
 function saveJsonVenda(urlDestino) {
     venda.fornecedor.id = $('#fornecedor option:selected').val();

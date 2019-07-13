@@ -50,36 +50,6 @@ function saveUpload(urlDestino) {
     });//Fim Ajax
 }
 
-$('#btnInserir').on('click', function (e) {
-        if (Number($('#quantidade').val() > 0)) {
-
-            produtosCarrinho = {};
-
-            var produto = Number($("#produtoID").val());
-            var quantidade = Number($("#quantidade").val());
-            var totalValor = $("#valorProduto").val();
-            produtosCarrinho.produto = produto;
-            produtosCarrinho.quantidade = quantidade;
-            produtosCarrinho.totalValor = totalValor;
-
-            localStorage.setItem("produtosCarrinho", JSON.stringify(produtosCarrinho))
-
-            swal({
-                    title: 'Salvo!',
-                    text: 'Produto adicionado!',
-                    type: 'success',
-                    showConfirmButton: false
-                },
-                setTimeout(function () {
-                    window.location = "/produto/page";
-                }, 1500));
-
-        } else {
-            swal('Erro!', 'Informe a quantidade!', 'warning');
-        }
-    }
-);
-
 $('#quantidade').on('input', function (e) {
     // impedir informar quantidade negativa
     if (Number($('#quantidade').val() <= 0)) {

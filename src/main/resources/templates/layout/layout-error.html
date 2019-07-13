@@ -25,10 +25,8 @@
     <link rel="stylesheet" th:href="@{/vendors/sweetalert/sweetalert.css}"/>
     <link rel="stylesheet" th:href="@{/vendors/bootstrap-datepicker/css/bootstrap-datepicker.min.css}"/>
 
-    <!-- UIkit CSS -->
+    <!--     UIkit CSS-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/css/uikit.min.css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit-icons.min.js"></script>
 </head>
 
 <body>
@@ -48,7 +46,12 @@
                     <a class="nav-link" th:href="@{/home}"><i class="fa fa-home"></i>Principal</a>
                 </li>
 
-                <li class="nav-item">
+                <li sec:authorize="hasRole('ROLE_USER')" class="nav-item"
+                    th:classappend="${#httpServletRequest.getRequestURI().startsWith('/produto') ? 'active':''}">
+                    <a class="nav-link" th:href="@{/produto/page}"><i class="fa fa-film"></i> Produtos</a>
+                </li>
+
+                <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="cadastros"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -77,7 +80,7 @@
                     </div>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="historico"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -91,46 +94,28 @@
                 </li>
 
 
-                <li class="nav-item">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="cliente"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Cliente
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Cadastro</a>
-                        </div>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="/produto/page">Comprar Produto</a>
-                        </div>
-                    </div>
-                </li>
+                <li sec:authorize="hasRole('ROLE_USER')" class="nav-item"
+                    th:classappend="${#httpServletRequest.getRequestURI().startsWith('/produto') ? 'active':''}">
+                    <a class="nav-link" th:href="@{/produto/page}"><i class="fa fa-film"></i> Produtos</a>
             </ul>
 
-            <div id="modalCart" class="modal modal-cart-close">
+            <!--            <div class="nav-item" id="msgLogin">-->
+            <!--                <p id="p2" sec:authorize="hasRole('ROLE_ADMIN')">Seja bem vindo, admin</p>-->
+            <!--                <p id="p3" sec:authorize="hasRole('ROLE_USER')">Seja bem vindo, cliente</p>-->
+            <!--            </div>-->
 
-                <h1 id="carrinhoHeader">Carrinho</h1>
-                <div id="itensCarrinho"></div>
-                <div id="cep">
-                    <input placeholder="CEP" class="numero-cep" type="number">
-                    <button id="okCep">OK</button>
-                </div>
-                <div id="totalCarrinho">
-                    <div>
-                        <strong>Total: </strong>
-                        <strong id="totalizador" class="valor-total"></strong>
-                    </div>
-                    <div>
-                        <strong>Frete:</strong>
-                        <strong id="frete" style="color: blue">R$ 20</strong>
-                    </div>
-                </div>
-                <button class="checkout">Checkout</button>
+            <div class="ui-corner-right">
+
+                <a th:href="@{/venda/checkout/}" id="btnCarrinho" class="fa fa-shopping-cart fa-2x"
+                   title="Abrir Carrinho"></a>
+
+                <sec:authorize access="!isAuthenticated()">
+                    <a th:href="@{/login}" class="btn btn-outline-success"><i class="fa fa-sign-in-alt"></i> Login</a>
+                </sec:authorize>
+
+                <a
+                        th:href="@{/logout}" class="btn btn-outline-danger"><i class="fa fa-sign-out-alt"></i> Sair</a>
             </div>
-
-            <div id="nomeUsuario" sec:authorize="hasRole('ROLE_ADMIN')">Texto apenas para o admin</div>
-
-            <a th:href="@{/logout}" class="btn btn-outline-danger"><i class="fa fa-sign-out-alt"></i> Sair</a>
         </div>
     </nav>
 </header>
@@ -211,7 +196,6 @@
 <script type="text/javascript" th:src="@{/js/carrinho.js}"></script>
 <!-- UIkit JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit-icons.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit-icons.min.js"></script
 </body>
 </html>

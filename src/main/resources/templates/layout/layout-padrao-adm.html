@@ -25,7 +25,7 @@
     <link rel="stylesheet" th:href="@{/vendors/sweetalert/sweetalert.css}"/>
     <link rel="stylesheet" th:href="@{/vendors/bootstrap-datepicker/css/bootstrap-datepicker.min.css}"/>
 
-    <!-- UIkit CSS -->
+    <!--     UIkit CSS-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/css/uikit.min.css"/>
 </head>
 
@@ -92,20 +92,23 @@
                         </div>
                     </div>
                 </li>
+
+
+                <li sec:authorize="hasRole('ROLE_USER')" class="nav-item"
+                    th:classappend="${#httpServletRequest.getRequestURI().startsWith('/produto') ? 'active':''}">
+                    <a class="nav-link" th:href="@{/produto/page}"><i class="fa fa-film"></i> Produtos</a>
+                </li>
             </ul>
 
-            <div class="nav-item" id="msgLogin">
-                <p id="p2" sec:authorize="hasRole('ROLE_ADMIN')">Seja bem vindo, admin</p>
-                <p id="p3" sec:authorize="hasRole('ROLE_USER')">Seja bem vindo, cliente</p>
-            </div>
-
-            <a th:href="@{/venda/checkout/}" id="btnCarrinho" class="fa fa-shopping-cart fa-2x"
-               title="Abrir Carrinho"></a>
-
             <div class="ui-corner-right">
-<!--                <a th:href="@{/login}" class="btn btn-outline-success"><i class="fa fa-sign-in-alt"></i> Login</a>-->
-                <a href="#" data-toggle="modal" data-target="#modal-form"
-                   class="btn btn-outline-success"><i class="fa fa-sign-in-alt"></i> Login</a>
+
+                <a th:href="@{/venda/checkout/}" id="btnCarrinho" class="fa fa-shopping-cart fa-2x"
+                   title="Abrir Carrinho"></a>
+
+                <sec:authorize access="!isAuthenticated()">
+                    <a th:href="@{/login}" class="btn btn-outline-success"><i class="fa fa-sign-in-alt"></i> Login</a>
+                </sec:authorize>
+
                 <a th:href="@{/logout}" class="btn btn-outline-danger"><i class="fa fa-sign-out-alt"></i> Sair</a>
             </div>
         </div>
@@ -176,44 +179,6 @@
     </div>
 </div>
 <!-- END OF FOOTER -->
-
-<div id="modal-login" class="modal modal-form" th:id="modal-form">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="wrapper fadeInDown">
-                    <div id="formContent">
-                        <!-- Tabs Titles -->
-
-                        <!-- Icon -->
-                        <div class="fadeIn first">
-                            <h3>Bertol Sistemas</h3>
-                        </div>
-
-                        <!-- Login Form -->
-                        <form th:action="@{/login}" method="POST">
-                            <input type="text" id="username" class="fadeIn second" name="username"
-                                   placeholder="usuário">
-
-                            <input type="password" id="password" class="fadeIn third" name="password"
-                                   placeholder="senha">
-
-                            <input type="submit" class="fadeIn fourth" value="Entrar">
-                            <div class="alert alert-danger" th:if="${#bools.isTrue(param.error)}">
-                                O usuário e/ou senha inválido(s)!
-                            </div>
-                        </form>
-
-                        <div id="formFooter">
-                            <a class="underlineHover" href="#">Ainda não fez seu cadastro?</a>
-                        </div>
-
-                    </div>
-                </div>
-            </div> <!-- modal-footer -->
-        </div> <!-- modal-content -->
-    </div> <!-- modal-dialog -->
-</div>
 
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script type="text/javascript" th:src="@{/vendors/sweetalert/sweetalert-dev.js}"></script>

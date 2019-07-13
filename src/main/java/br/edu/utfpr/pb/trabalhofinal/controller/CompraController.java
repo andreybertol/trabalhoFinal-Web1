@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -116,13 +117,13 @@ public class CompraController extends CrudController<Compra, Integer> {
     // validar
     @PostMapping("json")
     public ResponseEntity<?> saveJson(@RequestBody @Valid Compra entity, BindingResult result, Model model,
-                                      RedirectAttributes attributes) {
+                                      RedirectAttributes attributes, Principal principal) {
         if (result.hasErrors()) {
             return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
 
-        entity.setUsuario(usuarioService.findOne(entity.getUsuario().getId()));
         entity.setFornecedor(fornecedorService.findOne(entity.getFornecedor().getId()));
+        entity.setUsuario(usuarioService.findByUsername(principal.getName()));
 
         getService().save(entity);
 

@@ -3,9 +3,8 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout-padrao-adm}">
-
-      <link rel="stylesheet" th:href="@{/css/estilo.css}"/>
 <head>
+</head>
 <body>
 <section layout:fragment="conteudo">
     <form id="frm" method="POST" class="form-vertical" th:object="${produto}"
@@ -13,8 +12,7 @@
         <main class="container">
             <!-- Left Column / Headphones Image -->
             <div class="left-column">
-                <img src="../../images/logo.png">
-<!--                <img src='C:\projetoFinal\imagens\' + th:object="${produto.id}" + '.png' alt="">-->
+                <img th:src="@{'/images/' + ${produto.imagem}}">
             </div>
 
             <!-- Right Column -->
@@ -47,13 +45,11 @@
                     <input hidden id="valorProduto" th:value="${produto.valor}">
 
                     <td>R$: <span id="valor" th:text="${produto.valor}" th:value="${produto.valor}"></span></td>
-<!--                    <span th:inline="text">R$: [[${#numbers.formatDecimal(10.0, 0, 'COMMA', 2, 'POINT')}]]</span>-->
                     <a href="#" id="btnInserir" class="cart-btn">Adicionar ao carrinho</a>
                 </div>
             </div>
         </main>
     </form>
 </section>
-<script type="text/javascript" th:src="@{/js/crud-produto.js}"></script>
 </body>
 </html>

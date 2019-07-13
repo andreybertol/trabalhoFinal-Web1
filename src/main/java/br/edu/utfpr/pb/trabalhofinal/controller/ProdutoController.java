@@ -131,46 +131,47 @@ public class ProdutoController extends CrudController<Produto, Integer> {
     @PostMapping("upload")
     public ResponseEntity<?> save(@Valid Produto entity, BindingResult result,
                                   @RequestParam("anexo") MultipartFile anexo,
-                                  @RequestParam("anexos") MultipartFile[] anexos,
                                   HttpServletRequest request) {
 
         if (result.hasErrors()) {
             return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
-        getService().save(entity);
 
-        if (anexo != null) {
-            saveFile(entity.getId(), anexo);
+        if (anexo != null && !anexo.getOriginalFilename().isEmpty()) {
+            entity.setImagem(saveFile(anexo, request));
         }
+
+        getService().save(entity);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    private void saveFile(Integer id, MultipartFile anexo) {
-        File dir = new File("C:\\projetoFinal\\imagens\\");
-        if (!dir.exists()) { //verifica se o diretório de armazenamento existe
+    private String saveFile(MultipartFile anexo, HttpServletRequest request) {
+        File dir = new File(request.getServletContext().getRealPath("/images/"));
+            if (!dir.exists()) { //verifica se o diretório de armazenamento existe
             dir.mkdir(); //não existindo, cria o diretório
         }
 
-        String caminhoAnexo = "C:\\projetoFinal\\imagens\\";
+        String caminhoAnexo = request.getServletContext().getRealPath("/images/");
         String extensao = anexo.getOriginalFilename().substring(
                 anexo.getOriginalFilename().lastIndexOf("."),
                 anexo.getOriginalFilename().length());
 
-        String nomeArquivo = id + extensao;
+        String nomeArquivo = System.currentTimeMillis() + extensao;
 
         try {
             FileOutputStream fileOut = new FileOutputStream(
                     new File(caminhoAnexo + nomeArquivo));
 
             BufferedOutputStream stream = new BufferedOutputStream(fileOut);
-
             stream.write(anexo.getBytes());
             stream.close();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return nomeArquivo;
     }
 }
 

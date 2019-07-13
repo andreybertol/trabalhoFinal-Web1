@@ -1,6 +1,7 @@
 package br.edu.utfpr.pb.trabalhofinal.controller;
 
 
+import br.edu.utfpr.pb.trabalhofinal.model.Permissao;
 import br.edu.utfpr.pb.trabalhofinal.model.Usuario;
 import br.edu.utfpr.pb.trabalhofinal.service.CrudService;
 import br.edu.utfpr.pb.trabalhofinal.service.PermissaoService;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -77,6 +79,30 @@ public class UsuarioController
         getService().save(entity);
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("saveCliente")
+    public ResponseEntity<?> saveCliente(@Valid Usuario entity,
+                                      BindingResult result, RedirectAttributes attributes) {
+        if (result.hasErrors()) {
+            return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
+
+        entity.setPassword(
+                entity.getEncodedPassword(entity.getPassword()));
+
+        entity.setPermissoes((Set<Permissao>) permissaoService.findOne(2));
+
+        getService().save(entity);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("cliente/cadastro")
+    protected ModelAndView cadastro(@PathVariable Integer id) {
+        ModelAndView modelAndView = new ModelAndView(this.getURL() + "/cadastro");
+
+        return modelAndView;
     }
 
     @Override
