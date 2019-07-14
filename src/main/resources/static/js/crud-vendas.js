@@ -1,5 +1,5 @@
 var venda = {
-    "data_venda": String(),
+    "dataVenda": String(),
     "usuario": {},
     "valorTotal": 0,
     "vendaProdutos": new Array
@@ -10,29 +10,29 @@ window.onload = function () {
 
     var carrinho = JSON.parse(localStorage.getItem("produtosCarrinho"));
 
-    // testar isempty direito
     for (i = 0; i < carrinho.length; i++) {
         var rowData = carrinho[i];
 
-        var rowStr = "<tr>"
-            // + "<td>" + rowData.imagem + "</td>"
+        var rowStr = "<tr id=\"row\">"
             + "<td class=\"text-center\">" + rowData.produto + " - " + rowData.nome + "</td>"
-            // + "<td>" + rowData.nome + "</td>"
             + "<td class=\"text-center\">" + rowData.quantidade + "</td>"
             + "<td class=\"text-center\">" + Number(rowData.valor * rowData.quantidade) + "</td>"
             + "<td class=\"text-center\">"
-            + "<a id=\"btnRemover\" " +
-            " class=\"btn btn-danger btn-xs\">"
+            + "<a id=\"btnRemover\" class=\"btn btn-danger btn-xs\">"
             + "<i class=\"fa fa-trash\">" + "</i>"
-            + "</a>" + "</td>"
+            + "</a>"
+            + "</td>"
             + "</tr>"
+
         $("#tabela-produtos tbody").append(rowStr);
+        $("#row").attr('id', rowData.produto);
     }
 
     if (carrinho.length > 0) {
         // adiciona botão finalizar
         var btnFinalizar = "<div class=\"col-xs-4\">"
-            + "<a id=\"btnFinalizar\" class=\"btn btn-primary\">"
+            + "<a sec:authorize=\"isAuthenticated()\" "
+            + "onclick=\"saveJsonVenda()\" class=\"btn btn-primary\">"
             + "<i class=\"fa fa-plus-square\"></i> Finalizar Compra"
             + "</a>"
             + "</div>"
@@ -41,24 +41,14 @@ window.onload = function () {
     }
 };
 
-$("#btnFinalizar").on('click', function (e) {
-    swal({
-        title: 'Salvo!',
-        text: 'Compra realizada com sucesso!',
-        type: 'success',
-        showConfirmButton: false
-    });
-});
-
-function saveJsonVenda(urlDestino) {
-    venda.fornecedor.id = $('#fornecedor option:selected').val();
-    venda.usuario.id = $('#usuario option:selected').val();
-    venda.descricao = $('#descricao').val();
-    venda.data_venda = new Date().toLocaleDateString().split('/').reverse().join('-')
+function saveJsonVenda() {
+    venda.dataVenda = new Date().toLocaleDateString().split('/').reverse().join('-')
+    // venda.usuario.id = $('#usuario option:selected').val();
+    // venda.valorTotal = $('#descricao').val();
 
     $.ajax({
         method: 'POST',
-        url: urlDestino,
+        url: "/venda/json",
         contentType: 'application/json',
         data: JSON.stringify(venda),
         success: function () {

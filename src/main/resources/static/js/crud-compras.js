@@ -8,7 +8,7 @@ var compra = {
 };
 
 function saveJsonCompra(urlDestino) {
-    compra.fornecedor.id = $('#object option:selected').val();
+    compra.fornecedor.id = $('#fornecedor option:selected').val();
     compra.usuario.id = $('#usuario option:selected').val();
     compra.descricao = $('#descricao').val();
     compra.data_compra = new Date().toLocaleDateString().split('/').reverse().join('-')

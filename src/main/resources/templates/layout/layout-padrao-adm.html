@@ -46,9 +46,8 @@
                     <a class="nav-link" th:href="@{/home}"><i class="fa fa-home"></i>Principal</a>
                 </li>
 
-                <li sec:authorize="!hasRole('ROLE_ADMIN')" class="nav-item"
-                    th:classappend="${#httpServletRequest.getRequestURI().startsWith('/cliente') ? 'active':''}">
-                    <a class="nav-link" th:href="@{/cliente/cadastro}"><i class="fa fa-user"></i> Perfil</a>
+                <li sec:authorize="!hasRole('ROLE_ADMIN')" class="nav-item">
+                    <a class="nav-link" th:href="@{/cliente}"><i class="fa fa-user"></i> Perfil</a>
                 </li>
 
                 <li sec:authorize="!hasRole('ROLE_ADMIN')" class="nav-item"

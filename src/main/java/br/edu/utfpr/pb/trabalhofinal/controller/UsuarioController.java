@@ -13,11 +13,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -81,30 +83,6 @@ public class UsuarioController
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("saveCliente")
-    public ResponseEntity<?> saveCliente(@Valid Usuario entity,
-                                      BindingResult result, RedirectAttributes attributes) {
-        if (result.hasErrors()) {
-            return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
-        }
-
-        entity.setPassword(
-                entity.getEncodedPassword(entity.getPassword()));
-
-        entity.setPermissoes((Set<Permissao>) permissaoService.findOne(2));
-
-        getService().save(entity);
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @GetMapping("cliente/cadastro")
-    protected ModelAndView cadastro(@PathVariable Integer id) {
-        ModelAndView modelAndView = new ModelAndView(this.getURL() + "/cadastro");
-
-        return modelAndView;
-    }
-
     @Override
     @GetMapping("page")
     public ModelAndView list(@RequestParam("page") Optional<Integer> page,
@@ -129,6 +107,87 @@ public class UsuarioController
         return modelAndView;
     }
 }
+
+
+// CLIENTE
+
+
+@RequestMapping("cliente")
+public class ClienteController {
+
+    @Autowired
+    private UsuarioService usuarioService;
+
+    @GetMapping(value  = {"new", "novo"})
+    public String form(Model model, HttpServletRequest request) {
+        model.addAttribute("usuario", new Usuario() );
+
+        return "cliente/cadastro";
+    }
+
+    @PostMapping
+    public ResponseEntity<?> save(@Valid Usuario usuario, BindingResult result,
+                                  Model model, RedirectAttributes attributes,
+                                  HttpServletRequest request) {
+
+        if ( result.hasErrors() ) {
+            //model.addAttribute("usuario", usuario);
+            //return "usuario/form";
+            return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
+
+        usuarioService.save(usuario);
+
+        //attributes.addFlashAttribute("sucesso", "Registro salvo com sucesso!");
+        //return "redirect:/usuario";
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @GetMapping("{id}")
+    public String form(@PathVariable Integer id, Model model) {
+        Usuario usuario = usuarioService.findOne(id);
+
+        model.addAttribute("usuario", usuario);
+
+        return "usuario/form";
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") Integer id, Model model,
+                                    RedirectAttributes attributes) {
+        try {
+            usuarioService.delete(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+            //attributes.addFlashAttribute("sucesso", "Registro removido com sucesso!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            //attributes.addFlashAttribute("erro", "Falha ao remover registro.");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        //return "redirect:/usuario";
+    }
+}
+
+
+    @PostMapping("saveCliente")
+    public ResponseEntity<?> saveCliente(@Valid Usuario entity,
+                                         BindingResult result, RedirectAttributes attributes) {
+        if (result.hasErrors()) {
+            return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
+
+        entity.setPassword(
+                entity.getEncodedPassword(entity.getPassword()));
+
+        entity.setPermissoes((Set<Permissao>) permissaoService.findOne(2));
+
+        getService().save(entity);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
 
 
 

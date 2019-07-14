@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -71,21 +72,15 @@ public class VendaController extends CrudController<Venda, Integer> {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("ajax/{id}")
-    @ResponseBody
-    public Venda edit(@PathVariable Integer id) {
-        return getService().findOne(id);
-    }
-
     // validar
     @PostMapping("json")
     public ResponseEntity<?> saveJson(@RequestBody @Valid Venda entity, BindingResult result, Model model,
-                                      RedirectAttributes attributes) {
+                                      RedirectAttributes attributes, Principal principal) {
         if (result.hasErrors()) {
             return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
 
-        entity.setUsuario(usuarioService.findOne(entity.getUsuario().getId()));
+        entity.setUsuario(usuarioService.findByUsername(principal.getName()));
 
         getService().save(entity);
 
