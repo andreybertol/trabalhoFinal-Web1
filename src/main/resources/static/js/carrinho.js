@@ -45,11 +45,15 @@ $('#btnInserir').on('click', function (e) {
             produtosCarrinho = {};
 
             var produto = Number($("#produtoID").val());
+            var nome = $("#produtoNome").val();
             var quantidade = Number($("#quantidade").val());
             var totalValor = $("#valorProduto").val();
+            var imagem = $("#produtoIMG").val();
             produtosCarrinho.produto = produto;
+            produtosCarrinho.nome = nome;
             produtosCarrinho.quantidade = quantidade;
             produtosCarrinho.totalValor = totalValor;
+            produtosCarrinho.imagem = imagem;
 
             listaProduto.push(produtosCarrinho);
 
@@ -70,3 +74,12 @@ $('#btnInserir').on('click', function (e) {
         }
     }
 );
+
+$('#quantidade').on('input', function (e) {
+    var valor = Number($('#valor').val());
+    var quantidade = Number($('#quantidade').val());
+
+    var valorTotal = valor * quantidade;
+
+    $('#valorTotal').val(valorTotal);
+});

@@ -114,7 +114,6 @@ public class CompraController extends CrudController<Compra, Integer> {
         return getService().findOne(id);
     }
 
-    // validar
     @PostMapping("json")
     public ResponseEntity<?> saveJson(@RequestBody @Valid Compra entity, BindingResult result, Model model,
                                       RedirectAttributes attributes, Principal principal) {

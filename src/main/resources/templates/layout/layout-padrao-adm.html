@@ -2,7 +2,7 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:uk-icon="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -41,75 +41,77 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
 
-                <li class="nav-item"
+                <li class="nav-item" th:id="btnPrincipal"
                     th:classappend="${#httpServletRequest.getRequestURI().startsWith('/home') ? 'active':''}">
                     <a class="nav-link" th:href="@{/home}"><i class="fa fa-home"></i>Principal</a>
                 </li>
 
-                <li sec:authorize="hasRole('ROLE_USER')" class="nav-item"
-                    th:classappend="${#httpServletRequest.getRequestURI().startsWith('/produto') ? 'active':''}">
-                    <a class="nav-link" th:href="@{/produto/page}"><i class="fa fa-film"></i> Produtos</a>
+                <li sec:authorize="!hasRole('ROLE_ADMIN')" class="nav-item"
+                    th:classappend="${#httpServletRequest.getRequestURI().startsWith('/cliente') ? 'active':''}">
+                    <a class="nav-link" th:href="@{/cliente/cadastro}"><i class="fa fa-user"></i> Perfil</a>
                 </li>
 
-                <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="cadastros"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Cadastros
+                <li sec:authorize="!hasRole('ROLE_ADMIN')" class="nav-item"
+                    th:classappend="${#httpServletRequest.getRequestURI().startsWith('/produto') ? 'active':''}">
+                    <a class="nav-link" th:href="@{/produto/page}"><i class="fa fa-beer"></i> Produtos</a>
+                </li>
+
+
+                <li sec:authorize="!hasRole('ROLE_ADMIN')" class="nav-item"
+                    th:classappend="${#httpServletRequest.getRequestURI().startsWith('/cliente') ? 'active':''}">
+                    <a class="nav-link" th:href="@{/cliente/cadastro}"><i class="fa fa-list"></i> Pedidos Realizados</a>
+                </li>
+
+                <li class="nav-item">
+                    <div sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="menuProduto"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                                class="fa fa-beer"></i>
+                            Produtos
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" th:href="@{/usuario/page}">
-                                Usuários
+                            <a class="dropdown-item" th:href="@{/produto/page}"><i
+                                    class="fa fa-list"></i>
+                                Lista
                             </a>
-                            <a class="dropdown-item" th:href="@{/produto/page}">
-                                Produtos
+                            <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{/compra/page}">
+                                <i class=" fa fa-dollar-sign"></i>
+                                Comprar
                             </a>
-                            <a class="dropdown-item" th:href="@{/marca/page}">
-                                Marcas
-                            </a>
-                            <a class="dropdown-item" th:href="@{/categoria/page}">
-                                Categorias
-                            </a>
-                            <a class="dropdown-item" th:href="@{/fornecedor/page}">
-                                Fornecedores
-                            </a>
-                            <a class="dropdown-item" th:href="@{/compra/page}">
-                                Compras
-                            </a>
+                            <!--                            <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="#">-->
+                            <!--                                Histórico-->
+                            <!--                            </a>-->
                         </div>
                     </div>
                 </li>
 
-                <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="historico"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Histórico
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Pedidos Realizados</a>
-                            <a class="dropdown-item" href="#">Produtos Vendidos</a>
-                        </div>
-                    </div>
+                <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"
+                    th:classappend="${#httpServletRequest.getRequestURI().startsWith('/marca') ? 'active':''}">
+                    <a class="nav-link" th:href="@{/marca/page}"><i class="fa fa-tag"></i> Marcas</a>
                 </li>
 
+                <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"
+                    th:classappend="${#httpServletRequest.getRequestURI().startsWith('/categoria') ? 'active':''}">
+                    <a class="nav-link" th:href="@{/categoria/page}"><i class="fa fa-copyright"></i> Categorias</a>
+                </li>
 
-                <li sec:authorize="hasRole('ROLE_USER')" class="nav-item"
-                    th:classappend="${#httpServletRequest.getRequestURI().startsWith('/produto') ? 'active':''}">
-                    <a class="nav-link" th:href="@{/produto/page}"><i class="fa fa-film"></i> Produtos</a>
+                <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"
+                    th:classappend="${#httpServletRequest.getRequestURI().startsWith('/fornecedor') ? 'active':''}">
+                    <a class="nav-link" th:href="@{/fornecedor/page}"><i class="fa fa-truck"></i> Fornecedores </a>
                 </li>
             </ul>
 
             <div class="ui-corner-right">
 
-                <a th:href="@{/venda/checkout/}" id="btnCarrinho" class="fa fa-shopping-cart fa-2x"
+                <a uk-icon="icon: cart; ratio: 1.75" style="text-decoration : none" th:href="@{/venda/checkout/}"
+                   id="btnCarrinho"
                    title="Abrir Carrinho"></a>
 
-                <sec:authorize access="!isAuthenticated()">
-                    <a th:href="@{/login}" class="btn btn-outline-success"><i class="fa fa-sign-in-alt"></i> Login</a>
-                </sec:authorize>
+                <a sec:authorize="isAnonymous()" th:href="@{/login}" class="btn btn-outline-success"><i
+                        class="fa fa-sign-in-alt"></i> Login</a>
 
-                <a th:href="@{/logout}" class="btn btn-outline-danger"><i class="fa fa-sign-out-alt"></i> Sair</a>
+                <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn btn-outline-danger"><i
+                        class="fa fa-sign-out-alt"></i> Sair</a>
             </div>
         </div>
     </nav>
@@ -194,5 +196,6 @@
 <!-- UIkit JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit-icons.min.js"></script>
+<script src="uikit/dist/js/uikit-icons.min.js"></script>
 </body>
 </html>

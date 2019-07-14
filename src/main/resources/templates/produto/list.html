@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout-padrao-adm}">
 <head>
@@ -15,7 +16,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-4">
+                <div sec:authorize="hasRole('ROLE_ADMIN')" class="col-xs-4">
                     <a class="btn btn-primary" data-toggle="modal"
                        data-target="#modal-form">
                         <i class="fa fa-plus-square"></i> Novo Registro
@@ -58,19 +59,21 @@
                     <td><a th:text="${produto.categoria.nome}">...</a></td>
 
                     <td style="width:200px" class="text-center">
-<!--                        <a th:href="'javascript:produtoDetalhe(\'/produto/detalhe/' + ${produto.id} + '\');'"-->
-<!--                            class="btn btn-primary btn-xs"> <i class="fa fa-eye"></i>-->
-<!--                        </a> &nbsp;-->
+                        <!--                        <a th:href="'javascript:produtoDetalhe(\'/produto/detalhe/' + ${produto.id} + '\');'"-->
+                        <!--                            class="btn btn-primary btn-xs"> <i class="fa fa-eye"></i>-->
+                        <!--                        </a> &nbsp;-->
 
                         <a th:href="@{/produto/detalhe/{id}(id=${produto.id})}" class="btn btn-primary btn-xs">
                             <i class="fa fa-eye"></i>
                         </a>
 
-                        <a th:href="'javascript:editProduto(\'/produto/ajax/' + ${produto.id} + '\');'"
+                        <a sec:authorize="hasRole('ROLE_ADMIN')"
+                           th:href="'javascript:editProduto(\'/produto/ajax/' + ${produto.id} + '\');'"
                            class="btn btn-primary btn-xs"> <i class="fa fa-edit"></i>
                         </a> &nbsp;
 
-                        <a th:href="'javascript:remove('+ ${produto.id} +',\'/produto\');'"
+                        <a sec:authorize="hasRole('ROLE_ADMIN')"
+                           th:href="'javascript:remove('+ ${produto.id} +',\'/produto\');'"
                            class="btn btn-danger btn-xs"><i class="fa fa-trash"></i>
                         </a>
                     </td>
@@ -155,7 +158,7 @@
                         <div class="form-group">
                             <label for="anexo">Imagem:</label>
                             <input type="file" name="anexo" id="anexo"
-                                   required class="form-control" />
+                                   required class="form-control"/>
                         </div>
 
                     </form>
@@ -165,7 +168,8 @@
                             aria-hidden="true">Cancelar
                     </button>
                     <button type="button" class="btn btn-success"
-                            onclick="saveUpload('/produto/page')">Salvar</button>
+                            onclick="saveUpload('/produto/page')">Salvar
+                    </button>
                     </button>
                 </div> <!-- modal-footer -->
             </div> <!-- modal-content -->

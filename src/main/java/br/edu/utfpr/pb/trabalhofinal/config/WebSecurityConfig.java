@@ -29,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.defaultSuccessUrl("/")
 			.failureUrl("/login?error=bad_credentials").permitAll()
 			.and().logout()
-			.logoutSuccessUrl("/login")
+			.logoutSuccessUrl("/home")
 			.and().authorizeRequests()
 				.antMatchers("/usuario/**").hasAnyRole("ADMIN")
 				.antMatchers("/produto/**").permitAll()
@@ -37,9 +37,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/categoria/**").hasAnyRole("ADMIN")
 				.antMatchers("/marca/**").hasAnyRole("ADMIN")
 				.antMatchers("/compra/**").hasAnyRole("ADMIN")
-				.antMatchers("/home/").permitAll()
 				.antMatchers("/cliente/**").permitAll()
-				.antMatchers("/venda/**").hasAnyRole("USER", "ADMIN");
+				.antMatchers("/venda/**").hasAnyRole("USER", "ADMIN")
+				.antMatchers("/home/").permitAll();
 	}
 
 	@Override

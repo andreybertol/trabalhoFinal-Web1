@@ -12,9 +12,16 @@ window.onload = function() {
     for (i = 0; i <= carrinho.length; i++) {
         var rowData = carrinho[i];
         var rowStr = "<tr>"
-            + "<td>" + rowData.produto + "</td>"
+            + "<td>" + rowData.imagem + "</td>"
+            + "<td>" + rowData.produto + " - " + rowData.nome + "</td>"
+            // + "<td>" + rowData.nome + "</td>"
             + "<td>" + rowData.quantidade + "</td>"
             + "<td>" + rowData.totalValor + "</td>"
+            + "<td class=\"text-center\">"
+            + "<a th:href=\"'javascript:remove('+ ${marca.id} +',\\'/marca\\');'\"\n" +
+            " class=\"btn btn-danger btn-xs\">"
+            + "<i class=\"fa fa-trash\">" + "</i>"
+            + "</a>" + "</td>"
             + "</tr>"
         $("#tabela-produtos tbody").append(rowStr);
     }
