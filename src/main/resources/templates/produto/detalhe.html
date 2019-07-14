@@ -44,9 +44,9 @@
 
                 <!-- Product Pricing -->
                 <div class="product-price">
-                    <input hidden id="valor" th:value="${produto.valor}">
+                    <input hidden id="valorProduto" th:value="${produto.valor}">
 
-                    <td>R$: <span id="valorTotal" th:text="${produto.valor}" th:value="${produto.valor}"></span></td>
+                    <td>R$: <span id="valor" th:text="${produto.valor}" th:value="${produto.valor}"></span></td>
                     <a href="#" id="btnInserir" class="cart-btn">Adicionar ao carrinho</a>
                 </div>
             </div>

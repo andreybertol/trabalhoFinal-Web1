@@ -15,8 +15,6 @@
 //     }
 // });
 
-listaProduto = new Array;
-
 $('#btnLimpar').on('click', function (e) {
     swal({
             title: "Atenção!",
@@ -40,24 +38,53 @@ $('#btnLimpar').on('click', function (e) {
 });
 
 $('#btnInserir').on('click', function (e) {
+        // valida se foi informada quantidade do produto
         if (Number($('#quantidade').val() > 0)) {
-
-            produtosCarrinho = {};
 
             var produto = Number($("#produtoID").val());
             var nome = $("#produtoNome").val();
             var quantidade = Number($("#quantidade").val());
-            var totalValor = $("#valorProduto").val();
-            var imagem = $("#produtoIMG").val();
-            produtosCarrinho.produto = produto;
-            produtosCarrinho.nome = nome;
-            produtosCarrinho.quantidade = quantidade;
-            produtosCarrinho.totalValor = totalValor;
-            produtosCarrinho.imagem = imagem;
+            var valor = $("#valorProduto").val();
 
-            listaProduto.push(produtosCarrinho);
+            var carrinho = JSON.parse(localStorage.getItem("produtosCarrinho"));
 
-            localStorage.setItem("produtosCarrinho", JSON.stringify(listaProduto));
+            // valida se já foi adicionado algum item ao localstorage
+            if (carrinho == null) {
+                var carrinho = new Array;
+                var produtosCarrinho = {};
+
+                produtosCarrinho.produto = produto;
+                produtosCarrinho.nome = nome;
+                produtosCarrinho.quantidade = quantidade;
+                produtosCarrinho.valor = valor;
+
+                carrinho.push(produtosCarrinho);
+            } else {
+                var produtoExistente;
+
+                for (i = 0; i < carrinho.length; i++) {
+                    if (carrinho[i].produto == produto) {
+                        produtoExistente = true;
+                        indiceProduto = i;
+                        break;
+                    }
+                }
+
+                if (produtoExistente) {
+                    carrinho[i].quantidade += quantidade;
+                } else {
+                    var produtosCarrinho = {};
+
+                    produtosCarrinho.produto = produto;
+                    produtosCarrinho.nome = nome;
+                    produtosCarrinho.quantidade = quantidade;
+                    produtosCarrinho.valor = valor;
+
+                    carrinho.push(produtosCarrinho);
+                }
+            }
+
+            localStorage.setItem("produtosCarrinho", JSON.stringify(carrinho));
 
             swal({
                     title: 'Salvo!',
@@ -68,7 +95,6 @@ $('#btnInserir').on('click', function (e) {
                 setTimeout(function () {
                     window.location = "/produto/page";
                 }, 1500));
-
         } else {
             swal('Erro!', 'Informe a quantidade!', 'warning');
         }
