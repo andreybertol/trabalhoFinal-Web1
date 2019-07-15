@@ -18,14 +18,15 @@ window.onload = function () {
             + "<td class=\"text-center\">" + rowData.quantidade + "</td>"
             + "<td class=\"text-center\">" + Number(rowData.valor * rowData.quantidade) + "</td>"
             + "<td class=\"text-center\">"
-            + "<a id=\"btnRemover\" class=\"btn btn-danger btn-xs\">"
+            + "<a class=\"btn btn-danger btn-xs\" id=\"btnRemover\" onclick=removerItem($(this).attr(\"id\"))>"
             + "<i class=\"fa fa-trash\">" + "</i>"
             + "</a>"
             + "</td>"
             + "</tr>"
 
         $("#tabela-produtos tbody").append(rowStr);
-        $("#row").attr('id', rowData.produto);
+        // $("#row").attr('id', rowData.produto);
+        $("#btnRemover").attr('id', rowData.produto);
     }
 
     if (carrinho.length > 0) {
@@ -68,13 +69,41 @@ function saveJsonVenda() {
     });// Fim ajax
 }
 
-$("#btnRemover").on('input', function (e) {
-    carrinho = localStorage.getItem("produtosCarrinho");
+function removerItem(produtoID) {
 
-    for (var i = 0; i <= carrinho.length; i++) {
+    swal({
+        title: "Confirma a remoção do registro?",
+        text: "Esta ação não poderá ser desfeita!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Remover",
+        closeOnConfirm: false
+    }, function () {
 
-    }
-});
+        var carrinho = JSON.parse(localStorage.getItem("produtosCarrinho"));
+
+        for (var i = 0; i < carrinho.length; i++) {
+            if (produtoID == carrinho[i].produto) {
+
+                carrinho.splice(i, 1);
+
+                localStorage.setItem("produtosCarrinho", JSON.stringify(carrinho));
+
+                swal({
+                        title: 'Salvo!',
+                        text: 'Registro salvo com sucesso!',
+                        type: 'success',
+                        showConfirmButton: false
+                    },
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1000));
+            }
+        }
+    });
+};
 
 function formatDate(inputFormat) {
     function pad(s) {

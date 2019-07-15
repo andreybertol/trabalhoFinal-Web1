@@ -16,9 +16,15 @@ function remove(id, url) {
                 url: destino,
                 success: function () {
                     $('#row_' + id).remove();
-                    swal('Removido!',
-                        'Registro removido com sucesso!',
-                        'success');
+                    swal({
+                            title: 'Removido!',
+                            text: 'Registro removido com sucesso!',
+                            type: 'success',
+                            showConfirmButton: false
+                        },
+                        setTimeout(function() {
+                            window.location = urlDestino;
+                        }, 1000));
                 },
                 error: function () {
                     swal('Erro!',
