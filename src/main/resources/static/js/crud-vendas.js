@@ -30,7 +30,7 @@ window.onload = function () {
     if (carrinho.length > 0) {
         var btnFinalizar = "<div class=\"col-xs-4\">"
             + "<a sec:authorize=\"isAuthenticated()\" "
-            + "onclick=\"saveJsonVenda()\" class=\"btn btn-primary\">"
+            + "onclick=\"saveJsonVenda('/venda/json')\" class=\"btn btn-primary\">"
             + "<i class=\"fa fa-plus-square\"></i> Finalizar Compra"
             + "</a>"
             + "</div>"
@@ -78,6 +78,10 @@ function ajustarQtd(produtoID) {
     var carrinho = JSON.parse(localStorage.getItem("produtosCarrinho"));
     var qtdAtual = Number($('#' + produtoID).val());
 
+    if (qtdAtual < 0) {
+        qtdAtual = 0;
+    }
+
     for (var i = 0; i < carrinho.length; i++) {
         if (produtoID == carrinho[i].produto.id) {
 
@@ -88,7 +92,7 @@ function ajustarQtd(produtoID) {
     }
 }
 
-function saveJsonVenda() {
+function saveJsonVenda(urlDestino) {
     var venda = {
         "usuario": {},
         "data_venda": String(),
@@ -96,9 +100,13 @@ function saveJsonVenda() {
         "vendaProdutos": new Array
     };
 
-       venda.data_venda = new Date().toLocaleDateString().split('/').reverse().join('-')
+    venda.data_venda = new Date().toLocaleDateString().split('/').reverse().join('-')
 
     var carrinho = JSON.parse(localStorage.getItem("produtosCarrinho"));
+
+    for (i = 0; i < carrinho.length; i++){
+        venda.vendaProdutos.push(carrinho[i]);
+    }
 
     for (i = 0; i < carrinho.length; i++) {
         venda.valor_total += Number(carrinho[i].valor * carrinho[i].quantidade);
@@ -126,7 +134,6 @@ function saveJsonVenda() {
         }
     });// Fim ajax
 }
-
 
 function formatDate(inputFormat) {
     function pad(s) {

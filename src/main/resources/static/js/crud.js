@@ -24,7 +24,7 @@ function remove(id, url) {
                         },
                         setTimeout(function() {
                             window.location = urlDestino;
-                        }, 1000));
+                        }, 800));
                 },
                 error: function () {
                     swal('Erro!',
@@ -50,7 +50,7 @@ function save(urlDestino) {
                 },
                 setTimeout(function() {
                     window.location = urlDestino;
-                }, 1000));
+                }, 800));
     },
     error: function () {
         swal("Errou!", 'Falha ao salvar o registro!', 'error');
