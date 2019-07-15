@@ -1,6 +1,7 @@
 package br.edu.utfpr.pb.trabalhofinal.controller;
 
 import br.edu.utfpr.pb.trabalhofinal.model.Produto;
+import br.edu.utfpr.pb.trabalhofinal.repository.ProdutoRepository;
 import br.edu.utfpr.pb.trabalhofinal.service.CategoriaService;
 import br.edu.utfpr.pb.trabalhofinal.service.CrudService;
 import br.edu.utfpr.pb.trabalhofinal.service.MarcaService;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -37,6 +39,9 @@ public class ProdutoController extends CrudController<Produto, Integer> {
     private MarcaService marcaService;
     @Autowired
     private CategoriaService categoriaService;
+
+    @Autowired
+    private ProdutoRepository produtoRepository;
 
     @Override
     protected CrudService<Produto, Integer> getService() {
@@ -172,6 +177,14 @@ public class ProdutoController extends CrudController<Produto, Integer> {
         }
 
         return nomeArquivo;
+    }
+
+    @GetMapping(value = "produtosComprados")
+    public String findByCategoria(@RequestParam(value = "categoria", required = false) Integer categoria,
+                                  Model model, HttpServletRequest request) {
+
+        model.addAttribute("produtos", produtoRepository.findByCategoria(categoria));
+        return "produto/list";
     }
 }
 
