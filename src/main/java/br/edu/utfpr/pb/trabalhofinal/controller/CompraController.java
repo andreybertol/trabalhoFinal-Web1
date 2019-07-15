@@ -122,8 +122,8 @@ public class CompraController extends CrudController<Compra, Integer> {
         }
 
         entity.setFornecedor(fornecedorService.findOne(entity.getFornecedor().getId()));
-//        entity.setUsuario(usuarioService.findByUsername(principal.getName()));
-        entity.setUsuario(usuarioService.findOne(entity.getUsuario().getId()));
+        entity.setUsuario(usuarioService.findByUsername(principal.getName()));
+//        entity.setUsuario(usuarioService.findOne(entity.getUsuario().getId()));
 
         getService().save(entity);
 

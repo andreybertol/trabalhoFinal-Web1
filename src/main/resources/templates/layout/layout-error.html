@@ -105,7 +105,7 @@
 
             <div class="ui-corner-right">
 
-                <a uk-icon="icon: cart; ratio: 1.75" style="text-decoration : none" th:href="@{/venda/checkout/}"
+                <a sec:authorize="isAuthenticated()" uk-icon="icon: cart; ratio: 1.75" style="text-decoration : none" th:href="@{/venda/checkout/}"
                    id="btnCarrinho"
                    title="Abrir Carrinho"></a>
 

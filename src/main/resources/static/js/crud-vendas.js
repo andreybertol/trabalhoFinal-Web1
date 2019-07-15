@@ -1,10 +1,3 @@
-var venda = {
-    "dataVenda": String(),
-    "usuario": {},
-    "valorTotal": 0,
-    "vendaProdutos": new Array
-};
-
 // assim que carregar a página, cria os elementos se houver produtos inseridos no carrinho
 window.onload = function () {
 
@@ -13,9 +6,11 @@ window.onload = function () {
     for (i = 0; i < carrinho.length; i++) {
         var rowData = carrinho[i];
 
-        var rowStr = "<tr id=\"row\">"
-            + "<td class=\"text-center\">" + rowData.produto + " - " + rowData.nome + "</td>"
-            + "<td class=\"text-center\">" + rowData.quantidade + "</td>"
+        var rowStr = "<tr>"
+            + "<td class=\"text-center\">" + rowData.produto.id + " - " + rowData.nome + "</td>"
+            + "<td class=\"text-center\">"
+            + "<input class=\"text-center\" id=\"input\" type=\"number\" onchange=ajustarQtd($(this).attr(\"id\"))>"
+            + "</td>"
             + "<td class=\"text-center\">" + Number(rowData.valor * rowData.quantidade) + "</td>"
             + "<td class=\"text-center\">"
             + "<a class=\"btn btn-danger btn-xs\" id=\"btnRemover\" onclick=removerItem($(this).attr(\"id\"))>"
@@ -25,12 +20,14 @@ window.onload = function () {
             + "</tr>"
 
         $("#tabela-produtos tbody").append(rowStr);
-        // $("#row").attr('id', rowData.produto);
-        $("#btnRemover").attr('id', rowData.produto);
+
+        $("#input").val(rowData.quantidade);
+        $("#input").attr('id', rowData.produto.id);
+        $("#btnRemover").attr('id', rowData.produto.id);
     }
 
+    // adiciona botão finalizar
     if (carrinho.length > 0) {
-        // adiciona botão finalizar
         var btnFinalizar = "<div class=\"col-xs-4\">"
             + "<a sec:authorize=\"isAuthenticated()\" "
             + "onclick=\"saveJsonVenda()\" class=\"btn btn-primary\">"
@@ -42,35 +39,7 @@ window.onload = function () {
     }
 };
 
-function saveJsonVenda() {
-    venda.dataVenda = new Date().toLocaleDateString().split('/').reverse().join('-')
-    // venda.usuario.id = $('#usuario option:selected').val();
-    // venda.valorTotal = $('#descricao').val();
-
-    $.ajax({
-        method: 'POST',
-        url: "/venda/json",
-        contentType: 'application/json',
-        data: JSON.stringify(venda),
-        success: function () {
-            swal({
-                    title: 'Salvo!',
-                    text: 'Registro salvo com sucesso!',
-                    type: 'success',
-                    showConfirmButton: false
-                },
-                setTimeout(function () {
-                    window.location = "/venda/page";
-                }, 1000));
-        },
-        error: function () {
-            swal('Erro!', 'Falha ao salvar registro!', 'error');
-        }
-    });// Fim ajax
-}
-
 function removerItem(produtoID) {
-
     swal({
         title: "Confirma a remoção do registro?",
         text: "Esta ação não poderá ser desfeita!",
@@ -85,7 +54,7 @@ function removerItem(produtoID) {
         var carrinho = JSON.parse(localStorage.getItem("produtosCarrinho"));
 
         for (var i = 0; i < carrinho.length; i++) {
-            if (produtoID == carrinho[i].produto) {
+            if (produtoID == carrinho[i].produto.id) {
 
                 carrinho.splice(i, 1);
 
@@ -104,6 +73,60 @@ function removerItem(produtoID) {
         }
     });
 };
+
+function ajustarQtd(produtoID) {
+    var carrinho = JSON.parse(localStorage.getItem("produtosCarrinho"));
+    var qtdAtual = Number($('#' + produtoID).val());
+
+    for (var i = 0; i < carrinho.length; i++) {
+        if (produtoID == carrinho[i].produto.id) {
+
+            carrinho[i].quantidade = qtdAtual;
+
+            localStorage.setItem("produtosCarrinho", JSON.stringify(carrinho));
+        }
+    }
+}
+
+function saveJsonVenda() {
+    var venda = {
+        "usuario": {},
+        "data_venda": String(),
+        "valor_total": 0,
+        "vendaProdutos": new Array
+    };
+
+       venda.data_venda = new Date().toLocaleDateString().split('/').reverse().join('-')
+
+    var carrinho = JSON.parse(localStorage.getItem("produtosCarrinho"));
+
+    for (i = 0; i < carrinho.length; i++) {
+        venda.valor_total += Number(carrinho[i].valor * carrinho[i].quantidade);
+    }
+
+    $.ajax({
+        method: 'POST',
+        url: "/venda/json",
+        contentType: 'application/json',
+        data: JSON.stringify(venda),
+        success: function () {
+            swal({
+                    title: 'Finalizada!',
+                    text: 'Venda finalizada com sucesso!',
+                    type: 'success',
+                    showConfirmButton: false
+                },
+                setTimeout(function () {
+                    localStorage.clear();
+                    window.location = "/home";
+                }, 1000));
+        },
+        error: function () {
+            swal('Erro!', 'Falha ao finalizar venda!', 'error');
+        }
+    });// Fim ajax
+}
+
 
 function formatDate(inputFormat) {
     function pad(s) {

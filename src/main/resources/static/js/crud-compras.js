@@ -1,7 +1,7 @@
 var compra = {
     "fornecedor": {},
     "descricao": String,
-    "data_compra": String(),
+    "data_compra": String,
     "usuario": {},
     "valorTotal": 0,
     "compraProdutos": new Array

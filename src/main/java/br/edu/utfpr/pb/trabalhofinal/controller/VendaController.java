@@ -84,21 +84,13 @@ public class VendaController extends CrudController<Venda, Integer> {
 
         getService().save(entity);
 
-        Double valorTotal = 0.0;
-
         // percorre detalhe apenas se houver produtos inseridos
-        for (VendaProduto cp : entity.getVendaProdutos()) {
-            cp.setProduto(produtoService.findOne(cp.getProduto().getId()));
-            valorTotal = cp.getQuantidade() * cp.getProduto().getValor();
-            cp.setValor(valorTotal);
-            cp.setVenda(entity);
+        for (VendaProduto vp : entity.getVendaProdutos()) {
+            vp.setProduto(produtoService.findOne(vp.getProduto().getId()));
+            vp.setVenda(entity);
 
-            valorTotal = +cp.getValor();
-
-            vendaProdutoService.save(cp);
+            vendaProdutoService.save(vp);
         }
-
-        entity.setValor_total(valorTotal);
 
         getService().save(entity);
 

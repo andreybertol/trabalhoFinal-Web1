@@ -41,7 +41,7 @@ $('#btnInserir').on('click', function (e) {
         // valida se foi informada quantidade do produto
         if (Number($('#quantidade').val() > 0)) {
 
-            var produto = Number($("#produtoID").val());
+            var produtoID = Number($("#produtoID").val());
             var nome = $("#produtoNome").val();
             var quantidade = Number($("#quantidade").val());
             var valor = $("#valorProduto").val();
@@ -52,8 +52,8 @@ $('#btnInserir').on('click', function (e) {
             if (carrinho == null) {
                 var carrinho = new Array;
                 var produtosCarrinho = {};
-
-                produtosCarrinho.produto = produto;
+                produtosCarrinho.produto = {};
+                produtosCarrinho.produto.id = produtoID;
                 produtosCarrinho.nome = nome;
                 produtosCarrinho.quantidade = quantidade;
                 produtosCarrinho.valor = valor;
@@ -63,7 +63,7 @@ $('#btnInserir').on('click', function (e) {
                 var produtoExistente;
 
                 for (i = 0; i < carrinho.length; i++) {
-                    if (carrinho[i].produto == produto) {
+                    if (carrinho[i].produto.id == produtoID) {
                         produtoExistente = true;
                         indiceProduto = i;
                         break;
@@ -75,7 +75,8 @@ $('#btnInserir').on('click', function (e) {
                 } else {
                     var produtosCarrinho = {};
 
-                    produtosCarrinho.produto = produto;
+                    produtosCarrinho.produto = {};
+                    produtosCarrinho.produto.id = produtoID;
                     produtosCarrinho.nome = nome;
                     produtosCarrinho.quantidade = quantidade;
                     produtosCarrinho.valor = valor;
