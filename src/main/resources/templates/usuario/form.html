@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout-padrao-adm}">
+<head>
+</head>
+<body>
+<section layout:fragment="conteudo">
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-8">
+                    <h2>Cadastro de Cliente</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form id="frm" method="POST" class="form-vertical" th:object="${usuario}"
+          th:action="@{/usuario/ajax}">
+
+        <div class="alert  alert-success"
+             th:if="${!#strings.isEmpty(mensagem)}">
+            <i class="fa fa-check-circle"></i> <span th:text="${mensagem}">Mensagem de sucesso!</span>
+        </div>
+
+        <input type="hidden" id="id" name="id"/>
+
+        <input type="hidden" id="permissao" th:value="${permissao}"/>
+
+        <div class="form-group">
+            <label for="nome">Nome</label>
+            <input id="nome" type="text" class="form-control" th:field="*{nome}"/>
+            <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="username">Login</label>
+            <input id="username" type="text" class="form-control" th:field="*{username}"/>
+            <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Senha</label>
+            <input id="password" type="text" class="form-control" th:field="*{password}"/>
+            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <!--            <button class="btn  btn-primary" type="submit">-->
+            <!--                <i class="fa fa-save"></i>&nbsp; Salvar-->
+            <!--            </button>-->
+
+            <button type="button" class="btn btn-success"
+                    onclick="save('/home')">Salvar
+            </button>
+        </div>
+    </form>
+    <script type="text/javascript" th:src="@{/js/crud-usuario.js}"></script>
+</section>
+</body>
+</html>

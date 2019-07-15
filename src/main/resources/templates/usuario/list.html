@@ -59,11 +59,9 @@
                         </ul>
                     </td>
 
-
                     <td style="width:200px" class="text-center">
-                        <a
-                                th:href="'javascript:editUsuario(\'/usuario/ajax/' + ${usuario.id} + '\');'"
-                                class="btn btn-primary btn-xs"> <i class="fa fa-edit"></i>
+                        <a th:href="'javascript:editUsuario(\'/usuario/ajax/' + ${usuario.id} + '\');'"
+                           class="btn btn-primary btn-xs"> <i class="fa fa-edit"></i>
                         </a> &nbsp;
                         <a th:href="'javascript:remove('+ ${usuario.id} +',\'/usuario\');'"
                            class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
@@ -125,7 +123,6 @@
                                 <input type="checkbox" name="permissoes"
                                        th:id="'chk_' + ${permissao.id}" th:value="${permissao.id}"/>
                                 <!--todos os checks tem que ter o name permissoes pq manda um array de permissoes-->
-
                                 <label th:for="'chk_' + ${permissao.id}" th:text="${permissao.nome}"></label>
                             </div>
                         </div>

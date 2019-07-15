@@ -12,7 +12,7 @@
         <main class="container">
             <!-- Left Column / Headphones Image -->
             <div class="left-column">
-                <img th:src="@{'/images/' + ${produto.imagem}}">
+                <img id="imagem" th:src="@{'/images/' + ${produto.imagem}}">
             </div>
 
             <!-- Right Column -->
@@ -52,7 +52,7 @@
             </div>
         </main>
     </form>
-
+    <script type="text/javascript" th:src="@{/js/crud-produto.js}"></script>
 </section>
 </body>
 </html>

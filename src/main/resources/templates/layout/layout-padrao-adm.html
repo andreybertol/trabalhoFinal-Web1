@@ -47,7 +47,7 @@
                 </li>
 
                 <li sec:authorize="!hasRole('ROLE_ADMIN')" class="nav-item">
-                    <a class="nav-link" th:href="@{/cliente}"><i class="fa fa-user"></i> Perfil</a>
+                    <a class="nav-link" th:href="@{/usuario/new}"><i class="fa fa-user"></i> Perfil</a>
                 </li>
 
                 <li sec:authorize="!hasRole('ROLE_ADMIN')" class="nav-item"
@@ -55,6 +55,9 @@
                     <a class="nav-link" th:href="@{/produto/page}"><i class="fa fa-beer"></i> Produtos</a>
                 </li>
 
+                <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
+                    <a class="nav-link" th:href="@{/usuario/page}"><i class="fa fa-user"></i> Usuários</a>
+                </li>
 
                 <li sec:authorize="!hasRole('ROLE_ADMIN')" class="nav-item"
                     th:classappend="${#httpServletRequest.getRequestURI().startsWith('/cliente') ? 'active':''}">
@@ -102,7 +105,7 @@
 
             <div class="ui-corner-right">
 
-                <a uk-icon="icon: cart; ratio: 1.75" style="text-decoration : none" th:href="@{/venda/checkout/}"
+                <a sec:authorize="isAuthenticated()" uk-icon="icon: cart; ratio: 1.75" style="text-decoration : none" th:href="@{/venda/checkout/}"
                    id="btnCarrinho"
                    title="Abrir Carrinho"></a>
 
