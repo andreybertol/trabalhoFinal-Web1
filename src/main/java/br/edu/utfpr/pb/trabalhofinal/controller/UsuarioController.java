@@ -21,9 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -53,12 +51,29 @@ public class UsuarioController
         ModelAndView modelAndView = new ModelAndView(getURL() + "/form");
         if (entity == null) {
             modelAndView.addObject("usuario", new Usuario());
-//            modelAndView.addObject("permissao", permissaoService.findOne(2));
         } else {
             modelAndView.addObject("usuario", entity);
-//            modelAndView.addObject("permissao", permissaoService.findOne(2));
         }
         return modelAndView;
+    }
+
+    @PostMapping("cliente")
+    public ResponseEntity<?> salvarCliente(@Valid Usuario entity,
+                                      BindingResult result, RedirectAttributes attributes) {
+        if (result.hasErrors()) {
+            return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
+
+        List<Permissao> permissoes = new ArrayList<>();
+        permissoes.add(permissaoService.findOne(2));
+        Set<Permissao> targetSet = new HashSet<>(permissoes);
+        entity.setPermissoes(targetSet);
+
+        entity.setPassword(entity.getEncodedPassword(entity.getPassword()));
+
+        getService().save(entity);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override

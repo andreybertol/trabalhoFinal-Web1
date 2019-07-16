@@ -46,10 +46,6 @@
                     <a class="nav-link" th:href="@{/home}"><i class="fa fa-home"></i>Principal</a>
                 </li>
 
-                <li sec:authorize="!hasRole('ROLE_ADMIN')" class="nav-item">
-                    <a class="nav-link" th:href="@{/usuario/new}"><i class="fa fa-user"></i> Perfil</a>
-                </li>
-
                 <li sec:authorize="!hasRole('ROLE_ADMIN')" class="nav-item"
                     th:classappend="${#httpServletRequest.getRequestURI().startsWith('/produto') ? 'active':''}">
                     <a class="nav-link" th:href="@{/produto/page}"><i class="fa fa-beer"></i> Produtos</a>

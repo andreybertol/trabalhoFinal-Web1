@@ -18,9 +18,9 @@
     </div>
 
     <form id="frm" method="POST" class="form-vertical" th:object="${usuario}"
-          th:action="@{/usuario/ajax}">
+          th:action="@{/usuario/cliente}">
 
-        <div class="alert  alert-success"
+        <div class="alert alert-success"
              th:if="${!#strings.isEmpty(mensagem)}">
             <i class="fa fa-check-circle"></i> <span th:text="${mensagem}">Mensagem de sucesso!</span>
         </div>
