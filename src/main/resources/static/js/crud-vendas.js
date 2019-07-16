@@ -114,6 +114,19 @@ function saveJsonVenda(urlDestino) {
         "vendaProdutos": new Array
     };
 
+    if (Number($('#pgto').val()) == 0) {
+        swal({
+                title: 'Alerta!',
+                text: 'Informe a Forma de Pagamento!',
+                type: 'alert',
+                showConfirmButton: false
+            },
+            setTimeout(function () {
+            }, 800));
+
+        return
+    }
+
     venda.data_venda = new Date().toLocaleDateString().split('/').reverse().join('-')
 
     var carrinho = JSON.parse(localStorage.getItem("produtosCarrinho"));
@@ -143,7 +156,7 @@ function saveJsonVenda(urlDestino) {
                 setTimeout(function () {
                     localStorage.clear();
                     window.location = "/home";
-                }, 1000));
+                }, 800));
         },
         error: function () {
             swal('Erro!', 'Falha ao finalizar venda!', 'error');

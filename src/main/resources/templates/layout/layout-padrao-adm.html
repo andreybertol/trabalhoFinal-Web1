@@ -59,9 +59,9 @@
                     <a class="nav-link" th:href="@{/usuario/page}"><i class="fa fa-user"></i> Usuários</a>
                 </li>
 
-                <li sec:authorize="!hasRole('ROLE_ADMIN')" class="nav-item"
-                    th:classappend="${#httpServletRequest.getRequestURI().startsWith('/cliente') ? 'active':''}">
-                    <a class="nav-link" th:href="@{/cliente/cadastro}"><i class="fa fa-list"></i> Pedidos Realizados</a>
+                <li sec:authorize="isAuthenticated()" class="nav-item"
+                    th:classappend="${#httpServletRequest.getRequestURI().startsWith('/venda') ? 'active':''}">
+                    <a class="nav-link" th:href="@{/venda/historico}"><i class="fa fa-list"></i> Pedidos Realizados</a>
                 </li>
 
                 <li class="nav-item">
@@ -105,7 +105,7 @@
 
             <div class="ui-corner-right">
 
-                <a sec:authorize="isAuthenticated()" uk-icon="icon: cart; ratio: 1.75" style="text-decoration : none" th:href="@{/venda/checkout/}"
+                <a uk-icon="icon: cart; ratio: 1.75" style="text-decoration : none" th:href="@{/venda/checkout/}"
                    id="btnCarrinho"
                    title="Abrir Carrinho"></a>
 

@@ -3,6 +3,7 @@ package br.edu.utfpr.pb.trabalhofinal.controller;
 import br.edu.utfpr.pb.trabalhofinal.model.Produto;
 import br.edu.utfpr.pb.trabalhofinal.model.Venda;
 import br.edu.utfpr.pb.trabalhofinal.model.VendaProduto;
+import br.edu.utfpr.pb.trabalhofinal.repository.VendaRepository;
 import br.edu.utfpr.pb.trabalhofinal.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,6 +36,8 @@ public class VendaController extends CrudController<Venda, Integer> {
     private ProdutoService produtoService;
     @Autowired
     private UsuarioService usuarioService;
+    @Autowired
+    private VendaRepository vendaRepository;
 
     @Override
     protected CrudService<Venda, Integer> getService() {
@@ -101,22 +104,14 @@ public class VendaController extends CrudController<Venda, Integer> {
     protected ModelAndView form(Venda entity) {
         return null;
     }
+
+    @GetMapping(value = "historico")
+    public ModelAndView findVendaByUsuarioId(Principal pricipal) {
+
+        ModelAndView modelAndView = new ModelAndView(this.getURL() + "/historico");
+
+        modelAndView.addObject("vendas", vendaRepository.findByUsuarioId(usuarioService.findByUsername(pricipal.getName()).getId()));
+
+        return modelAndView;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

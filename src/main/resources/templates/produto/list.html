@@ -50,8 +50,7 @@
                 <tbody>
                 <tr th:id="'row_' + ${produto.id}" th:each="produto: ${list.content}">
                     <td style="width:150px" class="text-center" th:text="${produto.id}">0</td>
-                    <td><a th:href="'javascript:editProduto(\'/produto/ajax/' + ${produto.id} + '\');'"
-                           th:text="${produto.nome}">...</a></td>
+                    <td><a th:text="${produto.nome}">...</a></td>
                     <td><a th:text="${produto.detalhes}">...</a></td>
                     <td><a th:text="${produto.valor}">...</a></td>
                     <td><a th:text="${produto.estoque}">...</a></td>
