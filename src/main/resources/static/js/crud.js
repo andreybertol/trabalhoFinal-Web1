@@ -22,6 +22,7 @@ function remove(id, url) {
                     swal('Erro!',
                         'Falha ao remover registro!',
                         'error');
+
                 }
             });//Fim ajax
         }
