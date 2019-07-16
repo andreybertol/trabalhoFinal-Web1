@@ -18,5 +18,5 @@ INSERT INTO fornecedor(nome, endereco, cnpj) VALUES ('Bertol Distribuídora', 'E
 INSERT INTO fornecedor(nome, endereco, cnpj) VALUES ('Cervejas.com', 'Endereço 2', '85.25.666/0001-01');
 INSERT INTO fornecedor(nome, endereco, cnpj) VALUES ('Lojinha', 'Endereço 3', '85.25.777/0001-01');
 
-INSERT INTO produto(nome, detalhes, estoque, valor, categoria_id, marca_id, imagem) VALUES ('Coconut Splitter', 'Cerveja Forte', 50, 15.0, 3, 1, '1.png');
-INSERT INTO produto(nome, detalhes, estoque, valor, categoria_id, marca_id, imagem) VALUES ('Pilsen', 'Cerveja Pilsen', 30, 9.0, 2, 2, '2.png');
+INSERT INTO produto(nome, detalhes, estoque, valor, categoria_id, marca_id, imagem) VALUES ('Coconut Splitter', 'Descrição Cerveja Forte', 50, 15.0, 3, 1, '1.png');
+INSERT INTO produto(nome, detalhes, estoque, valor, categoria_id, marca_id, imagem) VALUES ('Escura', 'Descrição Cerveja Escura', 30, 9.0, 1, 2, '2.png');

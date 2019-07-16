@@ -112,22 +112,13 @@ function saveJsonVenda(urlDestino) {
         "forma_pgto": String,
         "vendaProdutos": new Array
     };
-
-    // if (Number($('#pgto').val()) == 0) {
-    //     swal('Alerta!','Informe a Forma de Pagamento!','alert');
-    //
-    //     return
-    // }
-
+    
     venda.data_venda = new Date().toLocaleDateString().split('/').reverse().join('-')
 
     var carrinho = JSON.parse(localStorage.getItem("produtosCarrinho"));
 
     for (i = 0; i < carrinho.length; i++) {
         venda.vendaProdutos.push(carrinho[i]);
-    }
-
-    for (i = 0; i < carrinho.length; i++) {
         venda.valor_total += Number(carrinho[i].valor * carrinho[i].quantidade);
     }
 
