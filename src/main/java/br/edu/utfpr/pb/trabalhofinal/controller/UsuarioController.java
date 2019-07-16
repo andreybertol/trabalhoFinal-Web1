@@ -53,10 +53,10 @@ public class UsuarioController
         ModelAndView modelAndView = new ModelAndView(getURL() + "/form");
         if (entity == null) {
             modelAndView.addObject("usuario", new Usuario());
-            modelAndView.addObject("permissao", permissaoService.findOne(2));
+//            modelAndView.addObject("permissao", permissaoService.findOne(2));
         } else {
             modelAndView.addObject("usuario", entity);
-            modelAndView.addObject("permissao", permissaoService.findOne(2));
+//            modelAndView.addObject("permissao", permissaoService.findOne(2));
         }
         return modelAndView;
     }
@@ -66,25 +66,25 @@ public class UsuarioController
         return null;
     }
 
-//    @GetMapping("ajax/{id}")
-//    @ResponseBody
-//    public Usuario edit(@PathVariable Long id) {
-//        return getService().findOne(id);
-//    }
-//
-//    @PostMapping("ajax")
-//    public ResponseEntity<?> saveAjax(@Valid Usuario entity,
-//                                      BindingResult result, RedirectAttributes attributes) {
-//        if (result.hasErrors()) {
-//            return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
-//        }
-//
-//        entity.setPassword(entity.getEncodedPassword(entity.getPassword()));
-//
-//        getService().save(entity);
-//
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
+    @GetMapping("ajax/{id}")
+    @ResponseBody
+    public Usuario edit(@PathVariable Long id) {
+        return getService().findOne(id);
+    }
+
+    @PostMapping("ajax")
+    public ResponseEntity<?> saveAjax(@Valid Usuario entity,
+                                      BindingResult result, RedirectAttributes attributes) {
+        if (result.hasErrors()) {
+            return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
+
+        entity.setPassword(entity.getEncodedPassword(entity.getPassword()));
+
+        getService().save(entity);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     @Override
     @GetMapping("page")

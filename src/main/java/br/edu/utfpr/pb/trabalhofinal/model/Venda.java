@@ -38,6 +38,8 @@ public class Venda implements Serializable{
 	@Column(name = "valor_total")
     private Double valor_total;
 
+	@Column(name = "forma_pgto")
+	private String forma_pgto;
 }
 
 

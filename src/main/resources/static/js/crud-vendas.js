@@ -11,7 +11,7 @@ window.onload = function () {
             + "<td class=\"text-center\">"
             + "<input class=\"text-center\" id=\"input\" type=\"number\" onchange=ajustarQtd($(this).attr(\"id\"))>"
             + "</td>"
-            + "<td class=\"text-center\">" + Number(rowData.valor * rowData.quantidade) + "</td>"
+            + "<td class=\"text-center\" id=\"vlr\">" + Number(rowData.valor * rowData.quantidade) + "</td>"
             + "<td class=\"text-center\">"
             + "<a class=\"btn btn-danger btn-xs\" id=\"btnRemover\" onclick=removerItem($(this).attr(\"id\"))>"
             + "<i class=\"fa fa-trash\">" + "</i>"
@@ -24,10 +24,21 @@ window.onload = function () {
         $("#input").val(rowData.quantidade);
         $("#input").attr('id', rowData.produto.id);
         $("#btnRemover").attr('id', rowData.produto.id);
+        $("#vlr").attr('id', "vlr_" + rowData.produto.id);
     }
 
     // adiciona botão finalizar
     if (carrinho.length > 0) {
+        var dropPagamento = " <div class=\"form-group\" style=\"text-align: center; width: 342px\">"
+            + "<label for=\"pgto\">Formas de Pagamento</label>"
+            + "<select id=\"pgto\" name=\"pgto\"class=\"form-control\">"
+            + " <option value=\"\"> (Selecione)</option>"
+            + " <option value=\"Dinheiro\">Dinheiro</option>"
+            + " <option value=\"Boleto\">Boleto</option>"
+            + " <option value=\"Paypal\">Paypal</option>"
+            + " </select>"
+            + " </div>"
+
         var btnFinalizar = "<div class=\"col-xs-4\">"
             + "<a sec:authorize=\"isAuthenticated()\" "
             + "onclick=\"saveJsonVenda('/venda/json')\" class=\"btn btn-primary\">"
@@ -35,6 +46,7 @@ window.onload = function () {
             + "</a>"
             + "</div>"
 
+        $("#frmFinalizar").append(dropPagamento);
         $("#frmFinalizar").append(btnFinalizar);
     }
 };
@@ -86,6 +98,7 @@ function ajustarQtd(produtoID) {
         if (produtoID == carrinho[i].produto.id) {
 
             carrinho[i].quantidade = qtdAtual;
+            $('#vlr_' + produtoID).text(carrinho[i].valor * qtdAtual);
 
             localStorage.setItem("produtosCarrinho", JSON.stringify(carrinho));
         }
@@ -95,8 +108,9 @@ function ajustarQtd(produtoID) {
 function saveJsonVenda(urlDestino) {
     var venda = {
         "usuario": {},
-        "data_venda": String(),
+        "data_venda": String,
         "valor_total": 0,
+        "forma_pgto": String,
         "vendaProdutos": new Array
     };
 
@@ -104,13 +118,15 @@ function saveJsonVenda(urlDestino) {
 
     var carrinho = JSON.parse(localStorage.getItem("produtosCarrinho"));
 
-    for (i = 0; i < carrinho.length; i++){
+    for (i = 0; i < carrinho.length; i++) {
         venda.vendaProdutos.push(carrinho[i]);
     }
 
     for (i = 0; i < carrinho.length; i++) {
         venda.valor_total += Number(carrinho[i].valor * carrinho[i].quantidade);
     }
+
+    venda.forma_pgto = $('#pgto').val();
 
     $.ajax({
         method: 'POST',
