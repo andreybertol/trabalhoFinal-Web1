@@ -26,6 +26,7 @@
                     <th>Venda</th>
                     <th>Data Venda</th>
                     <th>Forma Pagamento</th>
+                    <th>Total (R$)</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -36,6 +37,8 @@
                     <td><a th:text="${venda.data_venda}">...</a></td>
 
                     <td th:text="${venda.forma_pgto}">...</td>
+
+                    <td th:text="${venda.valor_total}">...</td>
                 </tr>
                 <tr th:if="${vendas.empty}">
                     <td colspan="4">Nenhum registro encontrado.</td>

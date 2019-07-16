@@ -32,7 +32,6 @@ window.onload = function () {
         var dropPagamento = " <div class=\"form-group\" style=\"text-align: center; width: 342px\">"
             + "<label for=\"pgto\">Formas de Pagamento</label>"
             + "<select id=\"pgto\" name=\"pgto\"class=\"form-control\">"
-            + " <option value=\"\"> (Selecione)</option>"
             + " <option value=\"Dinheiro\">Dinheiro</option>"
             + " <option value=\"Boleto\">Boleto</option>"
             + " <option value=\"Paypal\">Paypal</option>"
@@ -114,18 +113,11 @@ function saveJsonVenda(urlDestino) {
         "vendaProdutos": new Array
     };
 
-    if (Number($('#pgto').val()) == 0) {
-        swal({
-                title: 'Alerta!',
-                text: 'Informe a Forma de Pagamento!',
-                type: 'alert',
-                showConfirmButton: false
-            },
-            setTimeout(function () {
-            }, 800));
-
-        return
-    }
+    // if (Number($('#pgto').val()) == 0) {
+    //     swal('Alerta!','Informe a Forma de Pagamento!','alert');
+    //
+    //     return
+    // }
 
     venda.data_venda = new Date().toLocaleDateString().split('/').reverse().join('-')
 

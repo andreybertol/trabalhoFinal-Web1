@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -39,6 +40,7 @@ public class Venda implements Serializable{
     private Double valor_total;
 
 	@Column(name = "forma_pgto")
+	@NotNull(message = "Selecione a forma de pagamento!")
 	private String forma_pgto;
 }
 

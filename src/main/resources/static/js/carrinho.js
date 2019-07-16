@@ -88,7 +88,7 @@ $('#btnInserir').on('click', function (e) {
             localStorage.setItem("produtosCarrinho", JSON.stringify(carrinho));
 
             swal({
-                    title: 'Salvo!',
+                    title: 'Adicionado!',
                     text: 'Produto adicionado!',
                     type: 'success',
                     showConfirmButton: false

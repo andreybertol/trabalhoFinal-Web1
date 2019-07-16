@@ -55,7 +55,7 @@
                     <a class="nav-link" th:href="@{/usuario/page}"><i class="fa fa-user"></i> Usuários</a>
                 </li>
 
-                <li sec:authorize="isAuthenticated()" class="nav-item"
+                <li sec:authorize="hasRole('ROLE_USER')" class="nav-item"
                     th:classappend="${#httpServletRequest.getRequestURI().startsWith('/venda') ? 'active':''}">
                     <a class="nav-link" th:href="@{/venda/historico}"><i class="fa fa-list"></i> Pedidos Realizados</a>
                 </li>
@@ -76,9 +76,6 @@
                                 <i class=" fa fa-dollar-sign"></i>
                                 Comprar
                             </a>
-                            <!--                            <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="#">-->
-                            <!--                                Histórico-->
-                            <!--                            </a>-->
                         </div>
                     </div>
                 </li>

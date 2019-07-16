@@ -46,8 +46,7 @@
                 <tbody>
                 <tr th:id="'row_' + ${usuario.id}" th:each="usuario: ${list.content}">
                     <td style="width:150px" class="text-center" th:text="${usuario.id}">0</td>
-                    <td><a th:href="'javascript:usuario(\'/usuario/ajax/' + ${usuario.id} + '\');'"
-                           th:text="${usuario.nome}">...</a></td>
+                    <td><a th:text="${usuario.nome}">...</a></td>
 
                     <td th:text="${usuario.username}">...</td>
                     <td>
